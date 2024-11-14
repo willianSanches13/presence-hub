@@ -9,11 +9,44 @@ Willian Junior Sanches
 
 **Requisitos Funcionais**
 
-1. **Cadastro de Alunos**: Permitir o registro dos alunos com informações básicas: nome, turma.
-2. **Registro de Presença**: Funcionalidade para registrar a presença em cada aula, identificando a aula e os alunos presentes.
-3. **Consulta de Frequência**: Possibilitar que alunos e administradores consultem o histórico de presença.
-4.  **Relatórios de Presença**: Gerar relatórios detalhados da frequência por período, aluno, ou turma.
-5. **Notificações**: Notificar alunos ou administradores sobre ausências ou alertas de frequência baixa, se aplicável.
+1. **Cadastro de Alunos**:
+   •	Descrição: Permitir que novos alunos voluntários se registrem no sistema, fornecendo informações básicas para identificação e autenticação.
+   •	Detalhes:
+   •	Campos obrigatórios: nome, e-mail, senha, curso, e matrícula.
+   •	Validação de dados como formato de e-mail e senha com critérios mínimos de segurança.
+   •	Possibilidade de verificar se o e-mail ou matrícula já estão registrados para evitar duplicidade.
+2. **Login de Alunos**:
+   •	Descrição: Autenticar os alunos voluntários para que possam acessar o sistema e visualizar os workshops disponíveis e os quais estão inscritos.
+   •	Detalhes:
+   •	Campos obrigatórios: e-mail e senha.
+   •	Implementação de medidas de segurança como hashing de senha e autenticação baseada em token.
+   •	Função de “Esqueci minha senha” para recuperação de acesso por e-mail.
+
+3. **Cadastro de workshops**:
+   •	Descrição: Permitir que administradores ou organizadores registrem novos workshops, com informações detalhadas para que os alunos possam conhecer e se inscrever.
+   •	Detalhes:
+   •	Campos necessários: título, descrição, data, horário e local.
+   •	Verificação de conflitos de horário ou local, caso o sistema deseje impedir workshops simultâneos no mesmo espaço.
+   •	Possibilidade de definir o número de vagas ou de permitir inscrição ilimitada.
+4.  **Lançamento de workshops com participantes**:
+    •	Descrição: Permitir que organizadores registrem a presença dos alunos nos workshops, incluindo horários de entrada e saída.
+    •	Detalhes:
+    •	Listagem de alunos inscritos no workshop com opção para confirmar presença e registrar horários.
+    •	Capacidade de editar o status de presença e horários, caso haja necessidade de correção.
+    •	Interface para registrar a participação de alunos em tempo real ou posteriormente (por exemplo, ao final do evento).
+
+5. **Geração de certificados assinados**:
+   •	Descrição: Gerar certificados digitais para os alunos que confirmaram presença nos workshops, contendo uma assinatura digital ou eletrônica do organizador.
+   •	Detalhes:
+   •	Verificação automática da participação (presença confirmada) para permitir a geração do certificado.
+   •	Geração do certificado com informações como nome do aluno, nome do workshop, data e carga horária.
+   •	Adição de uma assinatura digital para validação do documento e garantia de autenticidade.
+6 **Disponibilização dos certificados assinados aos participantes**:
+   •	Descrição: Permitir que os alunos acessem e baixem seus certificados após a conclusão dos workshops em que participaram.
+   •	Detalhes:
+   •	Listagem de certificados disponíveis para cada aluno, com a opção de visualização e download.
+   •	Envio de notificação ou e-mail aos alunos quando um certificado estiver disponível.
+   •	Interface simples para que o aluno visualize os certificados acumulados e faça o download conforme necessário.
 
 **Telas**
 
