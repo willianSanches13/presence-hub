@@ -17,8 +17,8 @@ public class WorkshopController {
     private WorkshopService workshopService;
 
     @PostMapping
-    public ResponseEntity<Workshop> createWorkshop(@RequestBody WorkshopDTO workshopDto) {
-        Workshop createdWorkshop = workshopService.createWorkshop(workshopDto);
+    public ResponseEntity<WorkshopDTO> createWorkshop(@RequestBody WorkshopDTO workshopDto) {
+        WorkshopDTO createdWorkshop = workshopService.createWorkshop(workshopDto);
         return ResponseEntity.ok(createdWorkshop);
     }
 

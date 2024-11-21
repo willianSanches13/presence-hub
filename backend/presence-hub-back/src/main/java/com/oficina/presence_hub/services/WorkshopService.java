@@ -1,7 +1,9 @@
 package com.oficina.presence_hub.services;
 
+import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.entities.Workshop;
+import com.oficina.presence_hub.mappers.ParticipacaoMapper;
 import com.oficina.presence_hub.mappers.WorkshopMapper;
 import com.oficina.presence_hub.repositories.WorkshopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,12 @@ public class WorkshopService {
     @Autowired
     private WorkshopMapper workshopMapper;
 
-    public Workshop createWorkshop(WorkshopDTO workshopDto) {
-        return workshopRepository.save(workshopMapper.toWorkshop(workshopDto));
+    @Autowired
+    private ParticipacaoMapper participacaoMapper;
+
+    public WorkshopDTO createWorkshop(WorkshopDTO workshopDto) {
+         workshopRepository.save(workshopMapper.toWorkshop(workshopDto));
+         return workshopDto;
     }
 
     public List<WorkshopDTO> getAllWorkshops() {
@@ -30,7 +36,10 @@ public class WorkshopService {
 
     public WorkshopDTO getWorkshopById(Long id) {
         Workshop workshop = workshopRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Workshop not found"));
-        return workshopMapper.toWorkshopDTO(workshop);
+        WorkshopDTO workshopDTO = workshopMapper.toWorkshopDTO(workshop);
+        List<ParticipacaoDTO> participacoes = workshop.getParticipacoes().stream().map(participacaoMapper::toParticipacaoDTO).toList();
+        workshopDTO.participacoes().addAll(participacoes);
+        return workshopDTO;
     }
 
     public Workshop updateWorkshop(Long id, WorkshopDTO workshopDTO) {

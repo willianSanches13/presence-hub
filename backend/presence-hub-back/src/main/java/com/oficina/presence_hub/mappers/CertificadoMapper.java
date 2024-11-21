@@ -14,8 +14,13 @@ public interface CertificadoMapper {
     CertificadoMapper INSTANCE = Mappers.getMapper(CertificadoMapper.class);
 
     @Mapping(target = "aluno.certificados", ignore = true)
+    @Mapping(target = "aluno.participacoes", ignore = true)
+    @Mapping(target = "workshop.participacoes", ignore = true)
     CertificadoDTO toCertificadoDTO(Certificado certificado);
 
+    @Mapping(target = "workshop.participacoes", ignore = true)
+    @Mapping(target = "aluno.participacoes", ignore = true)
+    @Mapping(target = "aluno.certificados", ignore = true)
     Certificado toCertificado(CertificadoDTO certificadoDTO);
 
     List<CertificadoDTO> toCertificadoDTO(List<Certificado> certificados);

@@ -8,7 +8,6 @@ import com.oficina.presence_hub.mappers.CertificadoMapper;
 import com.oficina.presence_hub.repositories.AlunoRepository;
 import com.oficina.presence_hub.repositories.CertificadoRepository;
 import com.oficina.presence_hub.repositories.WorkshopRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -44,7 +43,9 @@ public class CertificadoService {
     }
 
     public CertificadoDTO getCertificadoById(Long id) {
-        Certificado certificado = certificadoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Certificado not found"));
+        Certificado certificado = certificadoRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Certificado not found"));
+
         return certificadoMapper.toCertificadoDTO(certificado);
     }
 
