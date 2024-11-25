@@ -1,0 +1,56 @@
+.aulas-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9dc; /* Amarelo pastel */
+    color: #4d4d4d; /* Cinza pastel */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .aulas-form {
+    background-color: #f5e508;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-group select,
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccda0b;
+    border-radius: 4px;
+  }
+  
+  .submit-button {
+    background-color: #74f00f;
+    color: #4d4d4d;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .submit-button:hover {
+    background-color: #f4e3a1;
+  }
