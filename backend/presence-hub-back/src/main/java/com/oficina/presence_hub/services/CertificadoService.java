@@ -52,7 +52,13 @@ public class CertificadoService {
     public Certificado updateCertificado(Long id, CertificadoDTO certificadoDTO) {
         Certificado certificado = certificadoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Certificado not found"));
         certificadoMapper.updateCertificadoFromDTO(certificadoDTO, certificado);
-        return certificadoRepository.save(certificado);
+        try {
+            return certificadoRepository.save(certificado);
+        } catch (Exception e) {
+            // Log the exception or handle it as needed
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error saving Certificado", e);
+        }
     }
 
     public void deleteCertificado(Long id) {

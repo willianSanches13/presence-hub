@@ -25,5 +25,6 @@ public interface AlunoMapper {
 
     List<Aluno> toAluno(List<AlunoDTO> alunoDTOs);
 
+    @Mapping(target= "id", ignore = true)
     void updateAlunoFromDTO(AlunoDTO alunoDTO, @MappingTarget Aluno aluno);
 }

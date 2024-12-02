@@ -27,5 +27,6 @@ public interface CertificadoMapper {
 
     List<Certificado> toCertificado(List<CertificadoDTO> certificadoDTOs);
 
+    @Mapping(target= "id", ignore = true)
     void updateCertificadoFromDTO(CertificadoDTO certificadoDTO, @MappingTarget Certificado certificado);
 }

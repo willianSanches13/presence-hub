@@ -27,5 +27,6 @@ public interface ParticipacaoMapper {
 
     List<Participacao> toParticipacao(List<ParticipacaoDTO> participacaoDTOs);
 
+    @Mapping(target= "id", ignore = true)
     void updateParticipacaoFromDTO(ParticipacaoDTO participacaoDTO, @MappingTarget Participacao participacao);
 }

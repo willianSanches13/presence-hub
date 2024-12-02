@@ -50,10 +50,11 @@ public class AlunoService {
         return alunoDTO;
     }
 
-    public Aluno updateAluno(Long id, AlunoDTO alunoDTO) {
+    public AlunoDTO updateAluno(Long id, AlunoDTO alunoDTO) {
         Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> new RuntimeException("Aluno not found"));
         alunoMapper.updateAlunoFromDTO(alunoDTO, aluno);
-        return alunoRepository.save(aluno);
+        Aluno updateAluno = alunoRepository.save(aluno);
+         return alunoMapper.toAlunoDTO(updateAluno);
     }
 
     public void deleteAluno(Long id) {

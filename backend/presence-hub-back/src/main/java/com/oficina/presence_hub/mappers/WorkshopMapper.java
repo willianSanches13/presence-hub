@@ -23,5 +23,6 @@ public interface WorkshopMapper {
 
     List<Workshop> toWorkshop(List<WorkshopDTO> workshopDTOs);
 
+    @Mapping(target= "id", ignore = true)
     void updateWorkshopFromDTO(WorkshopDTO workshopDTO, @MappingTarget Workshop workshop);
 }

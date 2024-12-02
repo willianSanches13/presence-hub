@@ -18,7 +18,7 @@ public class Participacao {
     public static final String TABLE_NAME= "PARTICIPACAO";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

@@ -19,7 +19,7 @@ public class Certificado {
     public static final String TABLE_NAME= "CERTIFICADO";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Aluno aluno;

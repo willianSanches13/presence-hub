@@ -26,7 +26,7 @@ public class WorkshopService {
     private ParticipacaoMapper participacaoMapper;
 
     public WorkshopDTO createWorkshop(WorkshopDTO workshopDto) {
-         workshopRepository.save(workshopMapper.toWorkshop(workshopDto));
+             workshopRepository.save(workshopMapper.toWorkshop(workshopDto));
          return workshopDto;
     }
 
