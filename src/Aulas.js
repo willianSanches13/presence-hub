@@ -13,18 +13,32 @@ function Aulas() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Dados da aula submetidos:', formData);
-    alert('Aula cadastrada com sucesso!');
-    // Aqui você pode integrar com a API ou lógica adicional
+
+    try {
+      const response = await fetch('https://api.example.com/cadastrar-aula', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Aula cadastrada com sucesso!');
+        setFormData({ professor: '', turma: '', dataHora: '' });
+      } else {
+        alert('Erro ao cadastrar aula. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro ao conectar ao servidor.');
+    }
   };
 
   return (
     <div className="aulas-container">
       <h1>Cadastro de Aulas</h1>
       <form className="aulas-form" onSubmit={handleSubmit}>
-        {/* Dropdown ou Autocomplete para Seleção do Professor */}
         <div className="form-group">
           <label htmlFor="professor">Professor:</label>
           <select
@@ -41,7 +55,6 @@ function Aulas() {
           </select>
         </div>
 
-        {/* Dropdown ou Autocomplete para Seleção da Turma */}
         <div className="form-group">
           <label htmlFor="turma">Turma:</label>
           <select
@@ -58,7 +71,6 @@ function Aulas() {
           </select>
         </div>
 
-        {/* Campo de Data e Hora */}
         <div className="form-group">
           <label htmlFor="dataHora">Data e Hora:</label>
           <input
@@ -70,7 +82,6 @@ function Aulas() {
           />
         </div>
 
-        {/* Botão de Submissão */}
         <button type="submit" className="submit-button">
           Cadastrar Aula
         </button>
