@@ -39,8 +39,8 @@ INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (997, 'Workshop 1', 'D
 INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (996, 'Workshop 2', 'Description for Workshop 2', '2023-11-01');
 INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (995, 'Workshop 3', 'Description for Workshop 3', '2023-12-01');
 
-INSERT INTO PARTICIPACAO (id, aluno_id, workshop_id, presente) VALUES (1, 998, 997, true);
-INSERT INTO PARTICIPACAO (id, aluno_id, workshop_id, presente) VALUES (2, 999, 996, false);
+INSERT INTO PARTICIPACAO (id, aluno_id, workshop_id, presente) VALUES (999, 998, 997, true);
+INSERT INTO PARTICIPACAO (id, aluno_id, workshop_id, presente) VALUES (998, 999, 996, false);
 
 INSERT INTO CERTIFICADO (id, aluno_id, workshop_id, assinatura_digital, data_emissao) VALUES (991, 998, 997, 'digital-signature-1', '2023-10-01');
 INSERT INTO CERTIFICADO (id, aluno_id, workshop_id, assinatura_digital, data_emissao) VALUES (992, 999, 996, 'digital-signature-2', '2023-11-01');

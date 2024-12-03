@@ -29,7 +29,7 @@ public class CertificadoControllerTest {
 
     @Test
     void createCertificadoTest() {
-        CertificadoDTO certificadoDto = TestUtils.buildCertificadoDTO();
+        CertificadoDTO certificadoDto = TestUtils.buildCertificadoDTOwithoutId();
 
         given()
                 .contentType(ContentType.JSON)
@@ -39,8 +39,8 @@ public class CertificadoControllerTest {
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body("aluno.nome", equalTo("John Doe"))
-                .body("workshop.titulo", equalTo("Workshop Title"))
-                .body("assinaturaDigital", equalTo("digital-signature"));
+                .body("workshop.titulo", equalTo("Workshop 1"))
+                .body("assinaturaDigital", equalTo("new-digital-signature"));
     }
 
     @Test

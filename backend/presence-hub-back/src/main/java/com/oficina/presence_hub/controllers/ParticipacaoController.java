@@ -35,8 +35,8 @@ public class ParticipacaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Participacao> updateParticipacao(@PathVariable Long id, @RequestBody ParticipacaoDTO participacaoDto) {
-        Participacao updatedParticipacao = participacaoService.updateParticipacao(id, participacaoDto);
+    public ResponseEntity<ParticipacaoDTO> updateParticipacao(@PathVariable Long id) {
+        ParticipacaoDTO updatedParticipacao = participacaoService.updateParticipacao(id);
         return ResponseEntity.ok(updatedParticipacao);
     }
 

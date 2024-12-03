@@ -34,7 +34,7 @@ public class ParticipacaoService {
         Participacao participacao = participacaoMapper.toParticipacao(participacaoDto);
         Participacao participacaoOrm = participacaoRepository.save(participacao);
         participacaoOrm.setAluno(findAluno(participacaoDto.aluno().id()));
-        participacaoOrm.setWorkshop(findWorkshop(participacaoDto.aluno().id()));
+        participacaoOrm.setWorkshop(findWorkshop(participacaoDto.workshop().id()));
         return participacaoMapper.toParticipacaoDTO(participacaoOrm);
     }
 
@@ -47,10 +47,10 @@ public class ParticipacaoService {
         return participacaoMapper.toParticipacaoDTO(participacao);
     }
 
-    public Participacao updateParticipacao(Long id, ParticipacaoDTO participacaoDTO) {
+    public ParticipacaoDTO updateParticipacao(Long id) {
         Participacao participacao = participacaoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participacao not found"));
-        participacaoMapper.updateParticipacaoFromDTO(participacaoDTO, participacao);
-        return participacaoRepository.save(participacao);
+        participacao.setPresente(!participacao.isPresente());
+        return participacaoMapper.toParticipacaoDTO(participacaoRepository.save(participacao));
     }
 
     public void deleteParticipacao(Long id) {
@@ -58,13 +58,13 @@ public class ParticipacaoService {
         participacaoRepository.delete(participacao);
     }
 
-    private Aluno findAluno(Long id){
+    private Aluno findAluno(Long id) {
         return alunoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
     }
 
-    private Workshop findWorkshop(Long id){
-        return  workshopRepository.findById(id)
+    private Workshop findWorkshop(Long id) {
+        return workshopRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Workshop não encontrado"));
     }
 }

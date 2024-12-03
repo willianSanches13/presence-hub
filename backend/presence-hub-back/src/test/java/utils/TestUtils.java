@@ -36,11 +36,28 @@ public class TestUtils {
                 .build();
     }
 
+    public static ParticipacaoDTO buildParticipacaoDTOwithoutId() {
+        return ParticipacaoDTO.builder()
+                .aluno(AlunoDTO.builder().id(998L).build())
+                .workshop(WorkshopDTO.builder().id(997L).build())
+                .presente(true)
+                .build();
+    }
+
     public static CertificadoDTO buildCertificadoDTO() {
         return CertificadoDTO.builder()
                 .id(1L)
                 .assinaturaDigital("new-digital-signature")
                 .dataEmissao(LocalDate.now())
+                .build();
+    }
+
+    public static CertificadoDTO buildCertificadoDTOwithoutId() {
+        return CertificadoDTO.builder()
+                .assinaturaDigital("new-digital-signature")
+                .dataEmissao(LocalDate.now())
+                .aluno(AlunoDTO.builder().id(998L).build())
+                .workshop(WorkshopDTO.builder().id(997L).build())
                 .build();
     }
 
