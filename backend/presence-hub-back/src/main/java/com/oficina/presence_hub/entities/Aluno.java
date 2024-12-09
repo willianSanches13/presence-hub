@@ -1,6 +1,7 @@
 package com.oficina.presence_hub.entities;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,19 +27,40 @@ public class Aluno {
     private Long id;
 
     private String nome;
+
     private String email;
+
     private String senha;
+
     private Integer idade;
+
     private String serie;
+
+    @Column(name = "instituicao_de_ensino")
     private String instituicaoDeEnsino;
+
+    @Column(name = "telefone_contato")
     private String telefoneContato;
+
     private String cidade;
+
     private String estado;
+
+    @Column(name = "nome_responsavel")
     private String nomeResponsavel;
+
+    @Column(name = "telefone_responsavel")
     private String telefoneResponsavel;
+
+    @Column(name = "matricula_projeto")
     private String matriculaProjeto;
+
+    @Column(name = "status_participacao")
     private String statusParticipacao;
+
+    @Column(name = "data_inscricao")
     private LocalDate dataInscricao;
+
     private String observacoes;
 
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)

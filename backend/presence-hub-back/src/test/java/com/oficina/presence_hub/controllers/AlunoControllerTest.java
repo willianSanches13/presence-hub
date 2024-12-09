@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+import utils.TestUtils;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -27,7 +28,7 @@ public class AlunoControllerTest {
 
     @Test
     void createAlunoTest() {
-        AlunoDTO alunoDto = new AlunoDTO(null, "John Doe", "john.doe@example.com", "password", null, null);
+        AlunoDTO alunoDto = TestUtils.buildAlunoDTOwithoutId();
 
         given()
                 .contentType(ContentType.JSON)
@@ -67,7 +68,7 @@ public class AlunoControllerTest {
     @Test
     void updateAlunoTest() {
         Long alunoId = 999L;
-        AlunoDTO alunoDto = new AlunoDTO(alunoId, "Jane Doe", "jane.doe@example.com", "newpassword", null, null);
+        AlunoDTO alunoDto = TestUtils.buildAlunoDTOwithId(alunoId);
 
         given()
                 .contentType(ContentType.JSON)

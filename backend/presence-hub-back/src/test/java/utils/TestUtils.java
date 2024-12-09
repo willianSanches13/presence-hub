@@ -10,12 +10,44 @@ import java.util.List;
 
 public class TestUtils {
 
-    public static AlunoDTO buildAlunoDTO() {
+    public static AlunoDTO buildAlunoDTOwithoutId() {
         return AlunoDTO.builder()
-                .id(1L)
                 .nome("John Doe")
                 .email("john.doe@example.com")
                 .senha("password")
+                .idade(20)
+                .serie("3rd Year")
+                .instituicaoDeEnsino("Example University")
+                .telefoneContato("123-456-7890")
+                .cidade("Example City")
+                .estado("Example State")
+                .nomeResponsavel("Jane Doe")
+                .telefoneResponsavel("098-765-4321")
+                .matriculaProjeto("123456")
+                .statusParticipacao("Active")
+                .dataInscricao(LocalDate.now())
+                .observacoes("No observations")
+                .build();
+    }
+
+    public static AlunoDTO buildAlunoDTOwithId(Long id) {
+        return AlunoDTO.builder()
+                .id(id)
+                .nome("Jane Doe")
+                .email("jane.doe@example.com")
+                .senha("password")
+                .idade(20)
+                .serie("3rd Year")
+                .instituicaoDeEnsino("Example University")
+                .telefoneContato("123-456-7890")
+                .cidade("Example City")
+                .estado("Example State")
+                .nomeResponsavel("Jane Doe")
+                .telefoneResponsavel("098-765-4321")
+                .matriculaProjeto("123456")
+                .statusParticipacao("Active")
+                .dataInscricao(LocalDate.now())
+                .observacoes("No observations")
                 .build();
     }
 
@@ -30,7 +62,7 @@ public class TestUtils {
     public static ParticipacaoDTO buildParticipacaoDTO() {
         return ParticipacaoDTO.builder()
                 .id(1L)
-                .aluno(buildAlunoDTO())
+                .aluno(buildAlunoDTOwithoutId())
                 .workshop(buildWorkshopDTOWithoutParticipacoes())
                 .presente(true)
                 .build();
