@@ -1,0 +1,35 @@
+### Create Certificado
+POST http://localhost:8083/certificados
+Content-Type: application/json
+
+{
+  "aluno": {
+    "id": 1
+  },
+  "workshop": {
+    "id": 1
+  },
+  "nome": "Certificado Name",
+  "descricao": "Certificado Description",
+  "assinaturaDigital": "fasfafafafarertg",
+  "dataEmissao": "2023-12-01"
+}
+
+### Get All Certificados
+GET http://localhost:8083/certificados
+
+### Get Certificado by ID
+GET http://localhost:8083/certificados/1
+
+### Update Certificado
+PUT http://localhost:8083/certificados/1
+Content-Type: application/json
+
+{
+  "nome": "Updated Certificado Name",
+  "descricao": "Updated Certificado Description",
+  "dataEmissao": "2023-12-02"
+}
+
+### Delete Certificado
+DELETE http://localhost:8083/certificados/1

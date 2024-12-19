@@ -1,0 +1,17 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    height: 50px;
+}
+
+.footer > span {
+    font-size: 1.1rem;
+    font-weight: 300;
+}

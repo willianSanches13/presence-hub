@@ -1,0 +1,31 @@
+.sidenav {
+    background-color: #ffbe00;
+    width: 50px;
+    transition: width 0.3s;
+    overflow: hidden;
+}
+
+.sidenav.expanded {
+    width: 200px;
+}
+
+.sidenav a {
+    color: #FFF;
+}
+
+.sidenav i {
+    padding-right: 10px;
+}
+
+.sidenav .nav-text {
+    display: none;
+}
+
+.sidenav.expanded .nav-text {
+    display: inline;
+}
+
+.content {
+    padding: 16px;
+    background-color: #FFF;
+}

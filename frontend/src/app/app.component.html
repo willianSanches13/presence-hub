@@ -1,0 +1,9 @@
+<app-header></app-header>
+<div *ngIf="mostrarMenu">
+    <app-nav></app-nav>
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="!mostrarMenu">
+    <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>
