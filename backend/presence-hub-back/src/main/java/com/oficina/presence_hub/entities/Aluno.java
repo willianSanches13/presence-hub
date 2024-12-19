@@ -10,8 +10,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -20,6 +22,8 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = Aluno.TABLE_NAME)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Aluno {
 
     public static final String TABLE_NAME = "ALUNO";

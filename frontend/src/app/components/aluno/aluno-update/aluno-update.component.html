@@ -1,0 +1,72 @@
+<mat-card>
+    <mat-card-title>Alterar Aluno</mat-card-title>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Nome"
+                   [(ngModel)]="aluno.nome" name="nome">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Email"
+                   [(ngModel)]="aluno.email" name="email">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Senha"
+                   [(ngModel)]="aluno.senha" name="senha">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Idade"
+                   [(ngModel)]="aluno.idade" name="idade" type="number">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Série"
+                   [(ngModel)]="aluno.serie" name="serie">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Instituição de Ensino"
+                   [(ngModel)]="aluno.instituicaoDeEnsino" name="instituicaoDeEnsino">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Telefone de Contato"
+                   [(ngModel)]="aluno.telefoneContato" name="telefoneContato">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Cidade"
+                   [(ngModel)]="aluno.cidade" name="cidade">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Estado"
+                   [(ngModel)]="aluno.estado" name="estado">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Nome do Responsável"
+                   [(ngModel)]="aluno.nomeResponsavel" name="nomeResponsavel">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Telefone do Responsável"
+                   [(ngModel)]="aluno.telefoneResponsavel" name="telefoneResponsavel">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Matrícula no Projeto"
+                   [(ngModel)]="aluno.matriculaProjeto" name="matriculaProjeto">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Status de Participação"
+                   [(ngModel)]="aluno.statusParticipacao" name="statusParticipacao">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Data de Inscrição"
+                   [(ngModel)]="aluno.dataInscricao" name="dataInscricao" type="date">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Observações"
+                      [(ngModel)]="aluno.observacoes" name="observacoes"></textarea>
+        </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="updateAluno()" color="primary">
+        Atualizar
+    </button>
+
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>

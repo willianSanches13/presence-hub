@@ -1,0 +1,28 @@
+### Create Workshop
+POST http://localhost:8083/workshops
+Content-Type: application/json
+
+{
+  "titulo": "Workshop Name",
+  "descricao": "Workshop Description",
+  "data": "2023-12-01T00:00:00"
+}
+
+### Get All Workshops
+GET http://localhost:8083/workshops
+
+### Get Workshop by ID
+GET http://localhost:8083/workshops/1
+
+### Update Workshop
+PUT http://localhost:8083/workshops/1
+Content-Type: application/json
+
+{
+  "titulo": "Workshop Name",
+  "descricao": "Workshop Description",
+  "data": "2023-12-01T00:00:00"
+}
+
+### Delete Workshop
+DELETE http://localhost:8083/workshops/1
