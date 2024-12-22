@@ -55,7 +55,7 @@ registerLocaleData(localePt);
     ForDirective,
     AlunoUpdateComponent,
     AlunoDeleteComponent,
-    HoverDirective,
+   HoverDirective,
     AlunoCrudComponent,
     LoginComponent
   ],

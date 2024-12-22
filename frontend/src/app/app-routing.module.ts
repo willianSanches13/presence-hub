@@ -1,13 +1,13 @@
-import { AlunoDeleteComponent } from './components/aluno/aluno-delete/aluno-delete.component';
-import { AlunoUpdateComponent } from './components/aluno/aluno-update/aluno-update.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { HomeComponent } from "./views/home/home.component";
 import { AlunoCrudComponent } from "./views/product-crud/aluno-crud.component";
 import { AlunoCreateComponent } from './components/aluno/aluno-create/aluno-create.component';
-import { AuthGuard } from "./guards/auth.guard";
+import { AlunoUpdateComponent } from './components/aluno/aluno-update/aluno-update.component';
+import { AlunoDeleteComponent } from './components/aluno/aluno-delete/aluno-delete.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
   {
