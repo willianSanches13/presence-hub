@@ -4,11 +4,13 @@ import com.oficina.presence_hub.dtos.AlunoDTO;
 import com.oficina.presence_hub.dtos.AlunoDTO.AlunoDTOBuilder;
 import com.oficina.presence_hub.dtos.CertificadoDTO;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
+import com.oficina.presence_hub.dtos.ProfessorDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.entities.Aluno;
 import com.oficina.presence_hub.entities.Aluno.AlunoBuilder;
 import com.oficina.presence_hub.entities.Certificado;
 import com.oficina.presence_hub.entities.Participacao;
+import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-10T17:11:01-0300",
+    date = "2024-12-23T13:45:33-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -34,7 +36,6 @@ public class AlunoMapperImpl implements AlunoMapper {
         alunoDTO.id( aluno.getId() );
         alunoDTO.nome( aluno.getNome() );
         alunoDTO.email( aluno.getEmail() );
-        alunoDTO.senha( aluno.getSenha() );
         alunoDTO.idade( aluno.getIdade() );
         alunoDTO.serie( aluno.getSerie() );
         alunoDTO.instituicaoDeEnsino( aluno.getInstituicaoDeEnsino() );
@@ -62,7 +63,6 @@ public class AlunoMapperImpl implements AlunoMapper {
         aluno.id( alunoDTO.id() );
         aluno.nome( alunoDTO.nome() );
         aluno.email( alunoDTO.email() );
-        aluno.senha( alunoDTO.senha() );
         aluno.idade( alunoDTO.idade() );
         aluno.serie( alunoDTO.serie() );
         aluno.instituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
@@ -115,7 +115,6 @@ public class AlunoMapperImpl implements AlunoMapper {
 
         aluno.setNome( alunoDTO.nome() );
         aluno.setEmail( alunoDTO.email() );
-        aluno.setSenha( alunoDTO.senha() );
         aluno.setIdade( alunoDTO.idade() );
         aluno.setSerie( alunoDTO.serie() );
         aluno.setInstituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
@@ -162,6 +161,22 @@ public class AlunoMapperImpl implements AlunoMapper {
         }
     }
 
+    protected Professor professorDTOToProfessor(ProfessorDTO professorDTO) {
+        if ( professorDTO == null ) {
+            return null;
+        }
+
+        Professor professor = new Professor();
+
+        professor.setNome( professorDTO.nome() );
+        professor.setEmail( professorDTO.email() );
+        professor.setTelefoneContato( professorDTO.telefoneContato() );
+        professor.setEspecializacao( professorDTO.especializacao() );
+        professor.setInstituicaoVinculo( professorDTO.instituicaoVinculo() );
+
+        return professor;
+    }
+
     protected List<Participacao> participacaoDTOListToParticipacaoList(List<ParticipacaoDTO> list) {
         if ( list == null ) {
             return null;
@@ -186,6 +201,7 @@ public class AlunoMapperImpl implements AlunoMapper {
         workshop.setTitulo( workshopDTO.titulo() );
         workshop.setDescricao( workshopDTO.descricao() );
         workshop.setData( workshopDTO.data() );
+        workshop.setProfessor( professorDTOToProfessor( workshopDTO.professor() ) );
         workshop.setParticipacoes( participacaoDTOListToParticipacaoList( workshopDTO.participacoes() ) );
 
         return workshop;

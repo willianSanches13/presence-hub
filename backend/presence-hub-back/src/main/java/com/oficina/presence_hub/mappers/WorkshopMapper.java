@@ -24,5 +24,6 @@ public interface WorkshopMapper {
     List<Workshop> toWorkshop(List<WorkshopDTO> workshopDTOs);
 
     @Mapping(target= "id", ignore = true)
+    @Mapping(target = "professor", ignore = true)
     void updateWorkshopFromDTO(WorkshopDTO workshopDTO, @MappingTarget Workshop workshop);
 }

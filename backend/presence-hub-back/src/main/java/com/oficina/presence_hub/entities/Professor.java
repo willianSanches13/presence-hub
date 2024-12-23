@@ -25,6 +25,5 @@ public class Professor {
     private String email;
     private String telefoneContato;
     private String especializacao;
-
     private String instituicaoVinculo;
 }

@@ -5,7 +5,14 @@ Content-Type: application/json
 {
   "titulo": "Workshop Name",
   "descricao": "Workshop Description",
-  "data": "2023-12-01T00:00:00"
+  "data": "2023-12-01T00:00:00",
+  "professor": {
+    "nome": "Professor Name",
+    "email": "professor@example.com",
+    "telefoneContato": "123456789",
+    "especializacao": "Specialization",
+    "instituicaoVinculo": "Institution"
+  }
 }
 
 ### Get All Workshops
@@ -21,7 +28,14 @@ Content-Type: application/json
 {
   "titulo": "Workshop Name",
   "descricao": "Workshop Description",
-  "data": "2023-12-01T00:00:00"
+  "data": "2023-12-01T00:00:00",
+  "professor": {
+    "nome": "Professor new Name",
+    "email": "professor@example.com",
+    "telefoneContato": "123456789",
+    "especializacao": "Specialization",
+    "instituicaoVinculo": "Institution"
+  }
 }
 
 ### Delete Workshop

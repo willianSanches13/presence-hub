@@ -18,10 +18,9 @@ public class ProfessorService {
     @Autowired
     private ProfessorMapper professorMapper;
 
-    public ProfessorDTO createProfessor(ProfessorDTO professorDTO) {
+    public Professor createProfessor(ProfessorDTO professorDTO) {
         Professor professor = professorMapper.toProfessor(professorDTO);
-        professor = professorRepository.save(professor);
-        return professorMapper.toProfessorDTO(professor);
+        return professorRepository.save(professor);
     }
 
     public List<ProfessorDTO> getAllProfessors() {
@@ -29,18 +28,15 @@ public class ProfessorService {
         return professorMapper.toProfessorDTO(professors);
     }
 
-    public ProfessorDTO getProfessorById(Long id) {
-        Professor professor = professorRepository.findById(id)
+    public Professor getProfessorById(Long id) {
+        return professorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professor not found"));
-        return professorMapper.toProfessorDTO(professor);
     }
 
-    public ProfessorDTO updateProfessor(Long id, ProfessorDTO professorDTO) {
-        Professor professor = professorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Professor not found"));
+    public Professor updateProfessor(Long id, ProfessorDTO professorDTO) {
+        Professor professor = getProfessorById(id);
         professorMapper.updateProfessorFromDTO(professorDTO, professor);
-        professor = professorRepository.save(professor);
-        return professorMapper.toProfessorDTO(professor);
+        return professorRepository.save(professor);
     }
 
     public void deleteProfessor(Long id) {

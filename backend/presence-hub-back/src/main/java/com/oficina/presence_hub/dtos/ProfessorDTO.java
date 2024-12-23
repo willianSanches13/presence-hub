@@ -5,6 +5,6 @@ import lombok.Builder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public record ProfessorDTO(Long id, String nome, String email, String telefoneContato,
+public record ProfessorDTO(String nome, String email, String telefoneContato,
                            String especializacao, String instituicaoVinculo) {
 }

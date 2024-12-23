@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-10T17:11:01-0300",
+    date = "2024-12-23T13:45:33-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -24,7 +24,6 @@ public class ProfessorMapperImpl implements ProfessorMapper {
 
         ProfessorDTOBuilder professorDTO = ProfessorDTO.builder();
 
-        professorDTO.id( professor.getId() );
         professorDTO.nome( professor.getNome() );
         professorDTO.email( professor.getEmail() );
         professorDTO.telefoneContato( professor.getTelefoneContato() );
@@ -42,7 +41,6 @@ public class ProfessorMapperImpl implements ProfessorMapper {
 
         Professor professor = new Professor();
 
-        professor.setId( professorDTO.id() );
         professor.setNome( professorDTO.nome() );
         professor.setEmail( professorDTO.email() );
         professor.setTelefoneContato( professorDTO.telefoneContato() );

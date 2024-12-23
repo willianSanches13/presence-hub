@@ -9,7 +9,7 @@ import lombok.Builder;
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Builder
-public record WorkshopDTO(Long id, String titulo, String descricao, LocalDate data, @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ParticipacaoDTO> participacoes) {
+public record WorkshopDTO(Long id, String titulo, String descricao, LocalDate data, ProfessorDTO professor, @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ParticipacaoDTO> participacoes) {
     public WorkshopDTO {
         participacoes = participacoes != null ? participacoes : new ArrayList<>();
     }

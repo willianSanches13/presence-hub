@@ -8,7 +8,7 @@ import lombok.Builder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public record AlunoDTO(Long id, String nome, String email, String senha,
+public record AlunoDTO(Long id, String nome, String email,
                        Integer idade, String serie, String instituicaoDeEnsino,
                        String telefoneContato, String cidade, String estado,
                        String nomeResponsavel, String telefoneResponsavel,

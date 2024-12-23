@@ -36,8 +36,6 @@ public class Aluno {
 
     private String email;
 
-    private String senha;
-
     private Integer idade;
 
     private String serie;

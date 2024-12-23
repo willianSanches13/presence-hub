@@ -5,12 +5,15 @@ import com.oficina.presence_hub.dtos.AlunoDTO.AlunoDTOBuilder;
 import com.oficina.presence_hub.dtos.CertificadoDTO;
 import com.oficina.presence_hub.dtos.CertificadoDTO.CertificadoDTOBuilder;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
+import com.oficina.presence_hub.dtos.ProfessorDTO;
+import com.oficina.presence_hub.dtos.ProfessorDTO.ProfessorDTOBuilder;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO.WorkshopDTOBuilder;
 import com.oficina.presence_hub.entities.Aluno;
 import com.oficina.presence_hub.entities.Aluno.AlunoBuilder;
 import com.oficina.presence_hub.entities.Certificado;
 import com.oficina.presence_hub.entities.Participacao;
+import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-10T17:11:01-0300",
+    date = "2024-12-23T13:45:33-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -125,7 +128,6 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         alunoDTO.id( aluno.getId() );
         alunoDTO.nome( aluno.getNome() );
         alunoDTO.email( aluno.getEmail() );
-        alunoDTO.senha( aluno.getSenha() );
         alunoDTO.idade( aluno.getIdade() );
         alunoDTO.serie( aluno.getSerie() );
         alunoDTO.instituicaoDeEnsino( aluno.getInstituicaoDeEnsino() );
@@ -142,6 +144,22 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         return alunoDTO.build();
     }
 
+    protected ProfessorDTO professorToProfessorDTO(Professor professor) {
+        if ( professor == null ) {
+            return null;
+        }
+
+        ProfessorDTOBuilder professorDTO = ProfessorDTO.builder();
+
+        professorDTO.nome( professor.getNome() );
+        professorDTO.email( professor.getEmail() );
+        professorDTO.telefoneContato( professor.getTelefoneContato() );
+        professorDTO.especializacao( professor.getEspecializacao() );
+        professorDTO.instituicaoVinculo( professor.getInstituicaoVinculo() );
+
+        return professorDTO.build();
+    }
+
     protected WorkshopDTO workshopToWorkshopDTO(Workshop workshop) {
         if ( workshop == null ) {
             return null;
@@ -153,6 +171,7 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         workshopDTO.titulo( workshop.getTitulo() );
         workshopDTO.descricao( workshop.getDescricao() );
         workshopDTO.data( workshop.getData() );
+        workshopDTO.professor( professorToProfessorDTO( workshop.getProfessor() ) );
 
         return workshopDTO.build();
     }
@@ -167,7 +186,6 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         aluno.id( alunoDTO.id() );
         aluno.nome( alunoDTO.nome() );
         aluno.email( alunoDTO.email() );
-        aluno.senha( alunoDTO.senha() );
         aluno.idade( alunoDTO.idade() );
         aluno.serie( alunoDTO.serie() );
         aluno.instituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
@@ -184,6 +202,22 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         return aluno.build();
     }
 
+    protected Professor professorDTOToProfessor(ProfessorDTO professorDTO) {
+        if ( professorDTO == null ) {
+            return null;
+        }
+
+        Professor professor = new Professor();
+
+        professor.setNome( professorDTO.nome() );
+        professor.setEmail( professorDTO.email() );
+        professor.setTelefoneContato( professorDTO.telefoneContato() );
+        professor.setEspecializacao( professorDTO.especializacao() );
+        professor.setInstituicaoVinculo( professorDTO.instituicaoVinculo() );
+
+        return professor;
+    }
+
     protected Workshop workshopDTOToWorkshop(WorkshopDTO workshopDTO) {
         if ( workshopDTO == null ) {
             return null;
@@ -195,6 +229,7 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         workshop.setTitulo( workshopDTO.titulo() );
         workshop.setDescricao( workshopDTO.descricao() );
         workshop.setData( workshopDTO.data() );
+        workshop.setProfessor( professorDTOToProfessor( workshopDTO.professor() ) );
 
         return workshop;
     }
@@ -222,7 +257,6 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         aluno.id( alunoDTO.id() );
         aluno.nome( alunoDTO.nome() );
         aluno.email( alunoDTO.email() );
-        aluno.senha( alunoDTO.senha() );
         aluno.idade( alunoDTO.idade() );
         aluno.serie( alunoDTO.serie() );
         aluno.instituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
@@ -252,6 +286,7 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         workshop.setTitulo( workshopDTO.titulo() );
         workshop.setDescricao( workshopDTO.descricao() );
         workshop.setData( workshopDTO.data() );
+        workshop.setProfessor( professorDTOToProfessor( workshopDTO.professor() ) );
         workshop.setParticipacoes( participacaoDTOListToParticipacaoList( workshopDTO.participacoes() ) );
 
         return workshop;
@@ -280,7 +315,6 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         mappingTarget.setId( alunoDTO.id() );
         mappingTarget.setNome( alunoDTO.nome() );
         mappingTarget.setEmail( alunoDTO.email() );
-        mappingTarget.setSenha( alunoDTO.senha() );
         mappingTarget.setIdade( alunoDTO.idade() );
         mappingTarget.setSerie( alunoDTO.serie() );
         mappingTarget.setInstituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
@@ -327,6 +361,18 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         }
     }
 
+    protected void professorDTOToProfessor1(ProfessorDTO professorDTO, Professor mappingTarget) {
+        if ( professorDTO == null ) {
+            return;
+        }
+
+        mappingTarget.setNome( professorDTO.nome() );
+        mappingTarget.setEmail( professorDTO.email() );
+        mappingTarget.setTelefoneContato( professorDTO.telefoneContato() );
+        mappingTarget.setEspecializacao( professorDTO.especializacao() );
+        mappingTarget.setInstituicaoVinculo( professorDTO.instituicaoVinculo() );
+    }
+
     protected void workshopDTOToWorkshop2(WorkshopDTO workshopDTO, Workshop mappingTarget) {
         if ( workshopDTO == null ) {
             return;
@@ -336,6 +382,15 @@ public class CertificadoMapperImpl implements CertificadoMapper {
         mappingTarget.setTitulo( workshopDTO.titulo() );
         mappingTarget.setDescricao( workshopDTO.descricao() );
         mappingTarget.setData( workshopDTO.data() );
+        if ( workshopDTO.professor() != null ) {
+            if ( mappingTarget.getProfessor() == null ) {
+                mappingTarget.setProfessor( new Professor() );
+            }
+            professorDTOToProfessor1( workshopDTO.professor(), mappingTarget.getProfessor() );
+        }
+        else {
+            mappingTarget.setProfessor( null );
+        }
         if ( mappingTarget.getParticipacoes() != null ) {
             List<Participacao> list = participacaoDTOListToParticipacaoList( workshopDTO.participacoes() );
             if ( list != null ) {
