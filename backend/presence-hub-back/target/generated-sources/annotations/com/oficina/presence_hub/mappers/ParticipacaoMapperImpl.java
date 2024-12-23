@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-23T13:45:33-0300",
+    date = "2024-12-23T14:56:43-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -105,7 +105,6 @@ public class ParticipacaoMapperImpl implements ParticipacaoMapper {
         alunoDTO.nomeResponsavel( aluno.getNomeResponsavel() );
         alunoDTO.telefoneResponsavel( aluno.getTelefoneResponsavel() );
         alunoDTO.matriculaProjeto( aluno.getMatriculaProjeto() );
-        alunoDTO.statusParticipacao( aluno.getStatusParticipacao() );
         alunoDTO.dataInscricao( aluno.getDataInscricao() );
         alunoDTO.observacoes( aluno.getObservacoes() );
 
@@ -163,7 +162,6 @@ public class ParticipacaoMapperImpl implements ParticipacaoMapper {
         aluno.nomeResponsavel( alunoDTO.nomeResponsavel() );
         aluno.telefoneResponsavel( alunoDTO.telefoneResponsavel() );
         aluno.matriculaProjeto( alunoDTO.matriculaProjeto() );
-        aluno.statusParticipacao( alunoDTO.statusParticipacao() );
         aluno.dataInscricao( alunoDTO.dataInscricao() );
         aluno.observacoes( alunoDTO.observacoes() );
 

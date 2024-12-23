@@ -25,7 +25,6 @@
 /Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/repositories/ProfessorRepository.java
 /Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/entities/Participacao.java
 /Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/controllers/WorkshopController.java
-/Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/controllers/ProfessorController.java
 /Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/services/WorkshopService.java
 /Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/config/CorsConfig.java
 /Users/willian.sanches/Dev/presence-hub/backend/presence-hub-back/src/main/java/com/oficina/presence_hub/dtos/WorkshopDTO.java

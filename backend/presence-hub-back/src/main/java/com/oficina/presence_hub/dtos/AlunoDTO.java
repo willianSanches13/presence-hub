@@ -12,8 +12,7 @@ public record AlunoDTO(Long id, String nome, String email,
                        Integer idade, String serie, String instituicaoDeEnsino,
                        String telefoneContato, String cidade, String estado,
                        String nomeResponsavel, String telefoneResponsavel,
-                       String matriculaProjeto, String statusParticipacao,
-                       LocalDate dataInscricao, String observacoes,
+                       String matriculaProjeto, LocalDate dataInscricao, String observacoes,
                        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ParticipacaoDTO> participacoes,
                        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<CertificadoDTO> certificados) {
 

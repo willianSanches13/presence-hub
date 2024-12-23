@@ -25,7 +25,6 @@ public class TestUtils {
                 .nomeResponsavel("Jane Doe")
                 .telefoneResponsavel("098-765-4321")
                 .matriculaProjeto("123456")
-                .statusParticipacao("Active")
                 .dataInscricao(LocalDate.now())
                 .observacoes("No observations")
                 .build();
@@ -45,7 +44,6 @@ public class TestUtils {
                 .nomeResponsavel("Jane Doe")
                 .telefoneResponsavel("098-765-4321")
                 .matriculaProjeto("123456")
-                .statusParticipacao("Active")
                 .dataInscricao(LocalDate.now())
                 .observacoes("No observations")
                 .build();
@@ -116,7 +114,6 @@ public class TestUtils {
                 .nomeResponsavel("Test Parent")
                 .telefoneResponsavel("0987654321")
                 .matriculaProjeto("12345")
-                .statusParticipacao("Active")
                 .dataInscricao(LocalDate.now())
                 .observacoes("No observations")
                 .participacoes(Collections.emptyList())

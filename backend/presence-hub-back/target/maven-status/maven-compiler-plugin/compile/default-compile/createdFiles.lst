@@ -20,7 +20,6 @@ com/oficina/presence_hub/services/WorkshopService.class
 com/oficina/presence_hub/dtos/ParticipacaoDTO$ParticipacaoDTOBuilder.class
 com/oficina/presence_hub/controllers/WorkshopController.class
 com/oficina/presence_hub/dtos/ProfessorDTO$ProfessorDTOBuilder.class
-com/oficina/presence_hub/controllers/ProfessorController.class
 com/oficina/presence_hub/repositories/CertificadoRepository.class
 com/oficina/presence_hub/entities/Workshop.class
 com/oficina/presence_hub/mappers/ProfessorMapperImpl.class

@@ -59,9 +59,6 @@ public class Aluno {
     @Column(name = "matricula_projeto")
     private String matriculaProjeto;
 
-    @Column(name = "status_participacao")
-    private String statusParticipacao;
-
     @Column(name = "data_inscricao")
     private LocalDate dataInscricao;
 

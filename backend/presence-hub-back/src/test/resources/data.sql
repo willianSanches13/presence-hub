@@ -11,7 +11,6 @@ CREATE TABLE aluno (
                        nome_responsavel VARCHAR(255),
                        telefone_responsavel VARCHAR(255),
                        matricula_projeto VARCHAR(255),
-                       status_participacao VARCHAR(255),
                        data_inscricao DATE,
                        observacoes TEXT
 );
@@ -56,11 +55,11 @@ CREATE TABLE IF NOT EXISTS PARTICIPACAO (
 
 
 
-INSERT INTO aluno (id, nome, email, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, status_participacao, data_inscricao, observacoes)
-VALUES (999, 'John Doe', 'john.doe@example.com', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', 'Active', '2023-03-01', 'No observations');
+INSERT INTO aluno (id, nome, email, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, data_inscricao, observacoes)
+VALUES (999, 'John Doe', 'john.doe@example.com', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', '2023-03-01', 'No observations');
 
-INSERT INTO aluno (id, nome, email, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, status_participacao, data_inscricao, observacoes)
-VALUES (998, 'Jane Doe', 'jane.doe@example.com', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', 'Active', '2023-03-01', 'No observations');
+INSERT INTO aluno (id, nome, email, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, data_inscricao, observacoes)
+VALUES (998, 'Jane Doe', 'jane.doe@example.com', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', '2023-03-01', 'No observations');
 
 INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (997, 'Workshop 1', 'Description for Workshop 1', '2023-10-01');
 INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (996, 'Workshop 2', 'Description for Workshop 2', '2023-11-01');
