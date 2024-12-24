@@ -1,77 +1,54 @@
 <mat-card>
-    <mat-card-title>Novo Aluno</mat-card-title>
-    <form>
+    <mat-card-title class="center-title">Novo Aluno</mat-card-title>
+    <form [formGroup]="alunoForm" (ngSubmit)="createAluno()">
         <div class="form-container">
-            <div class="form-column">
-                <mat-form-field>
-                    <input matInput placeholder="Nome"
-                           [(ngModel)]="aluno.nome" name="nome">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Senha"
-                           [(ngModel)]="aluno.senha" name="senha">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Série"
-                           [(ngModel)]="aluno.serie" name="serie">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Telefone de Contato"
-                           [(ngModel)]="aluno.telefoneContato" name="telefoneContato">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Estado"
-                           [(ngModel)]="aluno.estado" name="estado">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Telefone do Responsável"
-                           [(ngModel)]="aluno.telefoneResponsavel" name="telefoneResponsavel">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Status de Participação"
-                           [(ngModel)]="aluno.statusParticipacao" name="statusParticipacao">
-                </mat-form-field>
-            </div>
-            <div class="form-column">
-                <mat-form-field>
-                    <input matInput placeholder="Email"
-                           [(ngModel)]="aluno.email" name="email">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Idade"
-                           [(ngModel)]="aluno.idade" name="idade" type="number">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Instituição de Ensino"
-                           [(ngModel)]="aluno.instituicaoDeEnsino" name="instituicaoDeEnsino">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Cidade"
-                           [(ngModel)]="aluno.cidade" name="cidade">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Nome do Responsável"
-                           [(ngModel)]="aluno.nomeResponsavel" name="nomeResponsavel">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Matrícula no Projeto"
-                           [(ngModel)]="aluno.matriculaProjeto" name="matriculaProjeto">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Data de Inscrição"
-                           [(ngModel)]="aluno.dataInscricao" name="dataInscricao" type="date">
-                </mat-form-field>
-                <mat-form-field>
-                    <textarea matInput placeholder="Observações"
-                              [(ngModel)]="aluno.observacoes" name="observacoes"></textarea>
-                </mat-form-field>
-            </div>
+            <mat-form-field>
+                <input matInput placeholder="Nome" formControlName="nome">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Série" formControlName="serie">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Telefone de Contato" formControlName="telefoneContato" mask="(00) 00000-0000">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Estado" formControlName="estado">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Telefone do Responsável" formControlName="telefoneResponsavel" mask="(00) 00000-0000">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Idade" formControlName="idade" type="number">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Instituição de Ensino" formControlName="instituicaoDeEnsino">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Cidade" formControlName="cidade">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Nome do Responsável" formControlName="nomeResponsavel">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Matrícula no Projeto" formControlName="matriculaProjeto">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Data de Inscrição" formControlName="dataInscricao">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="Observações" formControlName="observacoes"></textarea>
+            </mat-form-field>
         </div>
+        <button mat-raised-button class="action-button" color="primary" type="submit">
+            Salvar
+        </button>
+        <button mat-raised-button class="cancel-button" type="button" (click)="cancel()">
+            Cancelar
+        </button>
     </form>
-    <button mat-raised-button (click)="createAluno()" color="primary">
-        Salvar
-    </button>
-    <button mat-raised-button (click)="cancel()">
-        Cancelar
-    </button>
 </mat-card>

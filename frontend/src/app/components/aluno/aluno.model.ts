@@ -2,7 +2,6 @@ export interface Aluno {
     id?: number;
     nome: string;
     email: string;
-    senha: string;
     idade: number;
     serie: string;
     instituicaoDeEnsino: string;
@@ -13,7 +12,7 @@ export interface Aluno {
     telefoneResponsavel: string;
     matriculaProjeto: string;
     statusParticipacao: string;
-    dataInscricao: string; // Use string for LocalDate
+    dataInscricao: Date;
     observacoes: string;
     //participacoes?: Participacao[];
     //certificados?: Certificado[];
