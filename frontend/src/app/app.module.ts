@@ -33,9 +33,10 @@ import { HoverDirective } from './directives/HoverDirective';
 import { LoginComponent } from './components/login/login.component';
 import { MatDatepickerInput } from '@angular/material/datepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import {MatSelect} from "@angular/material/select";
 
 registerLocaleData(localePt);
 
@@ -78,7 +79,9 @@ registerLocaleData(localePt);
     MatNativeDateModule,
     ReactiveFormsModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    MatSelect,
+    MatOption
   ],
   providers: [
     {

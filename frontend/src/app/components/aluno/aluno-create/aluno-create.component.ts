@@ -1,25 +1,11 @@
-import { Aluno } from '../aluno.model';
+import { Aluno, Endereco } from '../aluno.model';
 import { AlunoService } from '../aluno.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-
-interface AlunoForm {
-  nome: FormControl<string>;
-  email: FormControl<string>;
-  idade: FormControl<number>;
-  serie: FormControl<string>;
-  instituicaoDeEnsino: FormControl<string>;
-  telefoneContato: FormControl<string>;
-  cidade: FormControl<string>;
-  estado: FormControl<string>;
-  nomeResponsavel: FormControl<string>;
-  telefoneResponsavel: FormControl<string>;
-  matriculaProjeto: FormControl<string>;
-  statusParticipacao: FormControl<string>;
-  dataInscricao: FormControl<Date>;
-  observacoes: FormControl<string>;
-}
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { AlunoForm, EnderecoForm } from '../aluno.form';
+import { HttpClient } from '@angular/common/http';
+import { SerieEnum, SerieEnumKeys } from '../enums/serie.enum';
 
 @Component({
   selector: 'app-aluno-create',
@@ -29,26 +15,49 @@ interface AlunoForm {
 export class AlunoCreateComponent implements OnInit {
 
   alunoForm: FormGroup<AlunoForm>;
+  series = SerieEnumKeys;
 
-  constructor(private fb: FormBuilder, private alunoService: AlunoService, private router: Router) { }
+  constructor(private fb: FormBuilder, private alunoService: AlunoService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.alunoForm = this.fb.group<AlunoForm>({
       nome: this.fb.control('', Validators.required),
       email: this.fb.control('', [Validators.required, Validators.email]),
-      idade: this.fb.control(null, Validators.required),
+      dataNascimento: this.fb.control<Date | null>(null, Validators.required),
       serie: this.fb.control('', Validators.required),
+      endereco: this.fb.group<EnderecoForm>({
+        logradouro: this.fb.control('', Validators.required),
+        bairro: this.fb.control('', Validators.required),
+        cidade: this.fb.control('', Validators.required),
+        uf: this.fb.control('', Validators.required),
+        cep: this.fb.control('', Validators.required),
+        numero: this.fb.control(null, Validators.required),
+        complemento: this.fb.control('')
+      }),
       instituicaoDeEnsino: this.fb.control('', Validators.required),
-      telefoneContato: this.fb.control('', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{5}-\d{4}$/)]),
-      cidade: this.fb.control('', Validators.required),
-      estado: this.fb.control('', Validators.required),
+      telefoneContato: this.fb.control('', Validators.required),
       nomeResponsavel: this.fb.control('', Validators.required),
-      telefoneResponsavel: this.fb.control('', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{5}-\d{4}$/)]),
+      telefoneResponsavel: this.fb.control('', Validators.required),
       matriculaProjeto: this.fb.control('', Validators.required),
-      statusParticipacao: this.fb.control('', Validators.required),
-      dataInscricao: this.fb.control(null, Validators.required),
+      dataInscricao: this.fb.control<Date | null>(null, Validators.required),
       observacoes: this.fb.control('')
     });
+  }
+
+  buscarEndereco(): void {
+    const cep = this.alunoForm.get('endereco.cep')?.value;
+    if (cep) {
+      this.http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe((data: any) => {
+        this.alunoForm.patchValue({
+          endereco: {
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            cidade: data.localidade,
+            uf: data.uf
+          }
+        });
+      });
+    }
   }
 
   createAluno(): void {
@@ -64,4 +73,6 @@ export class AlunoCreateComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/alunos']);
   }
+
+  protected readonly SerieEnum = SerieEnum;
 }

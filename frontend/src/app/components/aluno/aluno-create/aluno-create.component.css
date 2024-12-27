@@ -13,6 +13,15 @@ button {
     flex-direction: column;
 }
 
+.endereco-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.endereco-container mat-form-field {
+    width: 100%;
+}
+
 .form-column {
     flex: 1;
     min-width: 300px;
@@ -35,3 +44,5 @@ button {
 .center-title {
     text-align: center;
 }
+
+
