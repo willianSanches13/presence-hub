@@ -1,18 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "./components/login/auth.service";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit {
-  mostrarMenu: boolean = false;
+export class AppComponent {
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.authService.mostrarMenuEmitter.subscribe(
-        mostrar => this.mostrarMenu = mostrar
-    );
-  }
 }

@@ -1,28 +1,26 @@
+export interface Endereco {
+    id?: number;
+    logradouro?: string;
+    bairro?: string;
+    cidade: string;
+    uf: string;
+    cep?: string;
+    numero?: number;
+    complemento?: string;
+}
+
 export interface Aluno {
     id?: number;
     nome: string;
-    email: string;
-    senha: string;
-    idade: number;
+    email?: string;
+    dataNascimento: Date;
     serie: string;
-    instituicaoDeEnsino: string;
-    telefoneContato: string;
-    cidade: string;
-    estado: string;
-    nomeResponsavel: string;
-    telefoneResponsavel: string;
-    matriculaProjeto: string;
-    statusParticipacao: string;
-    dataInscricao: string; // Use string for LocalDate
-    observacoes: string;
-    //participacoes?: Participacao[];
-    //certificados?: Certificado[];
+    endereco: Endereco;
+    instituicaoDeEnsino?: string;
+    telefoneContato?: string;
+    nomeResponsavel?: string;
+    telefoneResponsavel?: string;
+    matriculaProjeto?: string;
+    dataInscricao?: Date;
+    observacoes?: string;
 }
-
-// export interface Participacao {
-//     // Defina os campos de ParticipacaoDTO aqui
-// }
-//
-// export interface Certificado {
-//     // Defina os campos de CertificadoDTO aqui
-// }

@@ -23,5 +23,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-raised-button.mat-primary {
     background-color: #ffbe00; /* Cor de fundo personalizada */
-    color: #FFF; /* Cor do texto personalizada */
 }

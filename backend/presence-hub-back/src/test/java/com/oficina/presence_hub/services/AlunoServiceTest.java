@@ -48,8 +48,8 @@ class AlunoServiceTest {
     @BeforeEach
     void setUp() {
         aluno = TestUtils.buildAluno();
+        //todo fazer um build de aluno aqui
 
-        alunoDTO = new AlunoDTO(1L, "Test Aluno", "test@example.com", 20, "10th Grade", "Test School", "1234567890", "Test City", "Test State", "Test Parent", "0987654321", "12345", "Active", null, "No observations", Collections.emptyList(), Collections.emptyList());
     }
 
     @Test

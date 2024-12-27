@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AlunoReadComponent implements OnInit {
 
   alunos: Aluno[];
-  displayedColumns = ['id', 'nome', 'email', 'action'];
+  displayedColumns = ['id', 'nome', 'email', 'instituicaoDeEnsino', 'telefoneContato', 'matriculaProjeto', 'action'];
 
   constructor(private alunoService: AlunoService) { }
 

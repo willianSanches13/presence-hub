@@ -11,14 +11,20 @@
 
 .sidenav a {
     color: #FFF;
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }
 
 .sidenav i {
-    padding-right: 10px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
 }
 
 .sidenav .nav-text {
     display: none;
+    margin-left: 10px;
 }
 
 .sidenav.expanded .nav-text {

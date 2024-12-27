@@ -1,13 +1,15 @@
 package com.oficina.presence_hub.entities;
 
+import com.oficina.presence_hub.enums.SerieEnum;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 
 
 @Getter
@@ -32,23 +37,30 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 255, min = 3)
+    @Column(nullable = false)
     private String nome;
 
     private String email;
 
-    private Integer idade;
+    @NotNull
+    @PastOrPresent(message = "{PastOrPresent.aluno.dataNascimento}")
+    @DateTimeFormat(iso = ISO.DATE)
+    @Column(name= "data_nascimento", nullable = false, columnDefinition = "DATE")
+    private LocalDate dataNascimento;
 
-    private String serie;
+    @Enumerated(EnumType.STRING)
+    private SerieEnum serie;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Endereco endereco;
 
     @Column(name = "instituicao_de_ensino")
     private String instituicaoDeEnsino;
 
     @Column(name = "telefone_contato")
     private String telefoneContato;
-
-    private String cidade;
-
-    private String estado;
 
     @Column(name = "nome_responsavel")
     private String nomeResponsavel;

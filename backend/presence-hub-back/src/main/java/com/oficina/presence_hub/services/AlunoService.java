@@ -4,6 +4,7 @@ import com.oficina.presence_hub.dtos.AlunoDTO;
 import com.oficina.presence_hub.dtos.CertificadoDTO;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.entities.Aluno;
+import com.oficina.presence_hub.entities.Endereco;
 import com.oficina.presence_hub.mappers.AlunoMapper;
 import com.oficina.presence_hub.mappers.CertificadoMapper;
 import com.oficina.presence_hub.mappers.ParticipacaoMapper;
@@ -29,10 +30,15 @@ public class AlunoService {
     @Autowired
     CertificadoMapper certificadoMapper;
 
+    @Autowired
+    EnderecoService enderecoService;
+
     public AlunoDTO createAluno(AlunoDTO alunoDto) {
         log.info("Creating Aluno: {}", alunoDto);
         try {
             Aluno aluno = alunoRepository.save(alunoMapper.toAluno(alunoDto));
+            Endereco endereco = enderecoService.createEndereco(alunoDto.endereco());
+            aluno.setEndereco(endereco);
             log.info("Aluno created successfully: {}", aluno);
             return alunoMapper.toAlunoDTO(aluno);
         } catch (Exception e) {
@@ -66,6 +72,8 @@ public class AlunoService {
     public AlunoDTO updateAluno(Long id, AlunoDTO alunoDTO) {
         log.info("Updating Aluno with id: {}", id);
         Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> new RuntimeException("Aluno not found"));
+        Endereco endereco = enderecoService.updateEndereco(aluno.getEndereco().getId(), alunoDTO.endereco());
+        aluno.setEndereco(endereco);
         alunoMapper.updateAlunoFromDTO(alunoDTO, aluno);
         Aluno updatedAluno = alunoRepository.save(aluno);
         log.info("Aluno updated successfully: {}", updatedAluno);

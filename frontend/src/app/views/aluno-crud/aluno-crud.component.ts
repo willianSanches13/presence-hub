@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aluno-crud',
-  templateUrl: './product-crud.component.html',
+  templateUrl: './aluno-crud.component.html',
   styleUrls: ['./aluno-crud.component.css']
 })
 export class AlunoCrudComponent implements OnInit {

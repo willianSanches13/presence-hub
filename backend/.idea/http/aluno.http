@@ -3,9 +3,26 @@ POST http://localhost:8083/alunos
 Content-Type: application/json
 
 {
-  "nome": "Aluno Name",
-  "email": "aluno@example.com",
-  "senha": "password"
+  "nome": "João Silva",
+  "email": "joao.silva@example.com",
+  "dataNascimento": "2000-01-01",
+  "serie": "SEXTO_ANO_FUNDAMENTAL",
+  "endereco": {
+    "logradouro": "Rua das Flores",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "uf": "SP",
+    "cep": "01001-000",
+    "numero": 123,
+    "complemento": "Apt 45"
+  },
+  "instituicaoDeEnsino": "Escola Exemplo",
+  "telefoneContato": "123456789",
+  "nomeResponsavel": "Maria Silva",
+  "telefoneResponsavel": "987654321",
+  "matriculaProjeto": "2023-001",
+  "dataInscricao": "2023-09-01",
+  "observacoes": "Nenhuma"
 }
 
 ### Get All Alunos
@@ -19,9 +36,26 @@ PUT http://localhost:8083/alunos/1
 Content-Type: application/json
 
 {
-  "nome": "Updated Aluno Name",
-  "email": "updated_aluno@example.com",
-  "senha": "newpassword"
+  "nome": "João Rocha",
+  "email": "joao.silva@example.com",
+  "dataNascimento": "2000-01-01",
+  "serie": "SEXTO_ANO_FUNDAMENTAL",
+  "endereco": {
+    "logradouro": "Rua das Flores",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "uf": "SP",
+    "cep": "01001-000",
+    "numero": 144,
+    "complemento": "Apt 45"
+  },
+  "instituicaoDeEnsino": "Escola Exemplo",
+  "telefoneContato": "123456789",
+  "nomeResponsavel": "Maria Silva",
+  "telefoneResponsavel": "987654321",
+  "matriculaProjeto": "2023-001",
+  "dataInscricao": "2023-09-01",
+  "observacoes": "Nenhuma"
 }
 
 ### Delete Aluno
