@@ -2,6 +2,7 @@ package com.oficina.presence_hub.mappers;
 
 import com.oficina.presence_hub.dtos.AlunoDTO;
 import com.oficina.presence_hub.dtos.CertificadoDTO;
+import com.oficina.presence_hub.dtos.EnderecoDTO;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.dtos.ProfessorDTO;
 import com.oficina.presence_hub.dtos.ProfessorDTO.ProfessorDTOBuilder;
@@ -10,9 +11,11 @@ import com.oficina.presence_hub.dtos.WorkshopDTO.WorkshopDTOBuilder;
 import com.oficina.presence_hub.entities.Aluno;
 import com.oficina.presence_hub.entities.Aluno.AlunoBuilder;
 import com.oficina.presence_hub.entities.Certificado;
+import com.oficina.presence_hub.entities.Endereco;
 import com.oficina.presence_hub.entities.Participacao;
 import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
+import com.oficina.presence_hub.enums.UfEnum;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -20,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-23T13:45:33-0300",
+    date = "2024-12-27T13:37:25-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -147,6 +150,27 @@ public class WorkshopMapperImpl implements WorkshopMapper {
         return professor;
     }
 
+    protected Endereco enderecoDTOToEndereco(EnderecoDTO enderecoDTO) {
+        if ( enderecoDTO == null ) {
+            return null;
+        }
+
+        Endereco endereco = new Endereco();
+
+        endereco.setId( enderecoDTO.id() );
+        endereco.setLogradouro( enderecoDTO.logradouro() );
+        endereco.setBairro( enderecoDTO.bairro() );
+        endereco.setCidade( enderecoDTO.cidade() );
+        if ( enderecoDTO.uf() != null ) {
+            endereco.setUf( Enum.valueOf( UfEnum.class, enderecoDTO.uf() ) );
+        }
+        endereco.setCep( enderecoDTO.cep() );
+        endereco.setNumero( enderecoDTO.numero() );
+        endereco.setComplemento( enderecoDTO.complemento() );
+
+        return endereco;
+    }
+
     protected List<Participacao> participacaoDTOListToParticipacaoList(List<ParticipacaoDTO> list) {
         if ( list == null ) {
             return null;
@@ -199,16 +223,14 @@ public class WorkshopMapperImpl implements WorkshopMapper {
         aluno.id( alunoDTO.id() );
         aluno.nome( alunoDTO.nome() );
         aluno.email( alunoDTO.email() );
-        aluno.idade( alunoDTO.idade() );
+        aluno.dataNascimento( alunoDTO.dataNascimento() );
         aluno.serie( alunoDTO.serie() );
+        aluno.endereco( enderecoDTOToEndereco( alunoDTO.endereco() ) );
         aluno.instituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
         aluno.telefoneContato( alunoDTO.telefoneContato() );
-        aluno.cidade( alunoDTO.cidade() );
-        aluno.estado( alunoDTO.estado() );
         aluno.nomeResponsavel( alunoDTO.nomeResponsavel() );
         aluno.telefoneResponsavel( alunoDTO.telefoneResponsavel() );
         aluno.matriculaProjeto( alunoDTO.matriculaProjeto() );
-        aluno.statusParticipacao( alunoDTO.statusParticipacao() );
         aluno.dataInscricao( alunoDTO.dataInscricao() );
         aluno.observacoes( alunoDTO.observacoes() );
         aluno.participacoes( participacaoDTOListToParticipacaoList( alunoDTO.participacoes() ) );

@@ -2,7 +2,6 @@ CREATE TABLE aluno (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        nome VARCHAR(255) NOT NULL,
                        email VARCHAR(255) NOT NULL,
-                       senha VARCHAR(255) NOT NULL,
                        idade INT,
                        serie VARCHAR(255),
                        instituicao_de_ensino VARCHAR(255),
@@ -57,11 +56,11 @@ CREATE TABLE IF NOT EXISTS PARTICIPACAO (
 
 
 
-INSERT INTO aluno (id, nome, email, senha, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, status_participacao, data_inscricao, observacoes)
-VALUES (999, 'John Doe', 'john.doe@example.com', 'password', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', 'Active', '2023-03-01', 'No observations');
+INSERT INTO aluno (id, nome, email, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, status_participacao, data_inscricao, observacoes)
+VALUES (999, 'John Doe', 'john.doe@example.com', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', 'Active', '2023-03-01', 'No observations');
 
-INSERT INTO aluno (id, nome, email, senha, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, status_participacao, data_inscricao, observacoes)
-VALUES (998, 'Jane Doe', 'jane.doe@example.com', 'password', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', 'Active', '2023-03-01', 'No observations');
+INSERT INTO aluno (id, nome, email, idade, serie, instituicao_de_ensino, telefone_contato, cidade, estado, nome_responsavel, telefone_responsavel, matricula_projeto, status_participacao, data_inscricao, observacoes)
+VALUES (998, 'Jane Doe', 'jane.doe@example.com', 23, '5th Year', 'Example Institute', '123-456-7893', 'Example Village', 'Example State', 'David Brown', '098-765-4324', '654323', 'Active', '2023-03-01', 'No observations');
 
 INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (997, 'Workshop 1', 'Description for Workshop 1', '2023-10-01');
 INSERT INTO WORKSHOP (id, titulo, descricao, data) VALUES (996, 'Workshop 2', 'Description for Workshop 2', '2023-11-01');

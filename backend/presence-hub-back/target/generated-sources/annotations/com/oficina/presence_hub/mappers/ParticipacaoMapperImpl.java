@@ -2,6 +2,8 @@ package com.oficina.presence_hub.mappers;
 
 import com.oficina.presence_hub.dtos.AlunoDTO;
 import com.oficina.presence_hub.dtos.AlunoDTO.AlunoDTOBuilder;
+import com.oficina.presence_hub.dtos.EnderecoDTO;
+import com.oficina.presence_hub.dtos.EnderecoDTO.EnderecoDTOBuilder;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO.ParticipacaoDTOBuilder;
 import com.oficina.presence_hub.dtos.ProfessorDTO;
@@ -10,9 +12,11 @@ import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO.WorkshopDTOBuilder;
 import com.oficina.presence_hub.entities.Aluno;
 import com.oficina.presence_hub.entities.Aluno.AlunoBuilder;
+import com.oficina.presence_hub.entities.Endereco;
 import com.oficina.presence_hub.entities.Participacao;
 import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
+import com.oficina.presence_hub.enums.UfEnum;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-23T13:45:33-0300",
+    date = "2024-12-27T13:37:25-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -86,6 +90,27 @@ public class ParticipacaoMapperImpl implements ParticipacaoMapper {
         return list;
     }
 
+    protected EnderecoDTO enderecoToEnderecoDTO(Endereco endereco) {
+        if ( endereco == null ) {
+            return null;
+        }
+
+        EnderecoDTOBuilder enderecoDTO = EnderecoDTO.builder();
+
+        enderecoDTO.id( endereco.getId() );
+        enderecoDTO.logradouro( endereco.getLogradouro() );
+        enderecoDTO.bairro( endereco.getBairro() );
+        enderecoDTO.cidade( endereco.getCidade() );
+        if ( endereco.getUf() != null ) {
+            enderecoDTO.uf( endereco.getUf().name() );
+        }
+        enderecoDTO.cep( endereco.getCep() );
+        enderecoDTO.numero( endereco.getNumero() );
+        enderecoDTO.complemento( endereco.getComplemento() );
+
+        return enderecoDTO.build();
+    }
+
     protected AlunoDTO alunoToAlunoDTO(Aluno aluno) {
         if ( aluno == null ) {
             return null;
@@ -96,16 +121,14 @@ public class ParticipacaoMapperImpl implements ParticipacaoMapper {
         alunoDTO.id( aluno.getId() );
         alunoDTO.nome( aluno.getNome() );
         alunoDTO.email( aluno.getEmail() );
-        alunoDTO.idade( aluno.getIdade() );
+        alunoDTO.dataNascimento( aluno.getDataNascimento() );
         alunoDTO.serie( aluno.getSerie() );
+        alunoDTO.endereco( enderecoToEnderecoDTO( aluno.getEndereco() ) );
         alunoDTO.instituicaoDeEnsino( aluno.getInstituicaoDeEnsino() );
         alunoDTO.telefoneContato( aluno.getTelefoneContato() );
-        alunoDTO.cidade( aluno.getCidade() );
-        alunoDTO.estado( aluno.getEstado() );
         alunoDTO.nomeResponsavel( aluno.getNomeResponsavel() );
         alunoDTO.telefoneResponsavel( aluno.getTelefoneResponsavel() );
         alunoDTO.matriculaProjeto( aluno.getMatriculaProjeto() );
-        alunoDTO.statusParticipacao( aluno.getStatusParticipacao() );
         alunoDTO.dataInscricao( aluno.getDataInscricao() );
         alunoDTO.observacoes( aluno.getObservacoes() );
 
@@ -144,6 +167,27 @@ public class ParticipacaoMapperImpl implements ParticipacaoMapper {
         return workshopDTO.build();
     }
 
+    protected Endereco enderecoDTOToEndereco(EnderecoDTO enderecoDTO) {
+        if ( enderecoDTO == null ) {
+            return null;
+        }
+
+        Endereco endereco = new Endereco();
+
+        endereco.setId( enderecoDTO.id() );
+        endereco.setLogradouro( enderecoDTO.logradouro() );
+        endereco.setBairro( enderecoDTO.bairro() );
+        endereco.setCidade( enderecoDTO.cidade() );
+        if ( enderecoDTO.uf() != null ) {
+            endereco.setUf( Enum.valueOf( UfEnum.class, enderecoDTO.uf() ) );
+        }
+        endereco.setCep( enderecoDTO.cep() );
+        endereco.setNumero( enderecoDTO.numero() );
+        endereco.setComplemento( enderecoDTO.complemento() );
+
+        return endereco;
+    }
+
     protected Aluno alunoDTOToAluno(AlunoDTO alunoDTO) {
         if ( alunoDTO == null ) {
             return null;
@@ -154,16 +198,14 @@ public class ParticipacaoMapperImpl implements ParticipacaoMapper {
         aluno.id( alunoDTO.id() );
         aluno.nome( alunoDTO.nome() );
         aluno.email( alunoDTO.email() );
-        aluno.idade( alunoDTO.idade() );
+        aluno.dataNascimento( alunoDTO.dataNascimento() );
         aluno.serie( alunoDTO.serie() );
+        aluno.endereco( enderecoDTOToEndereco( alunoDTO.endereco() ) );
         aluno.instituicaoDeEnsino( alunoDTO.instituicaoDeEnsino() );
         aluno.telefoneContato( alunoDTO.telefoneContato() );
-        aluno.cidade( alunoDTO.cidade() );
-        aluno.estado( alunoDTO.estado() );
         aluno.nomeResponsavel( alunoDTO.nomeResponsavel() );
         aluno.telefoneResponsavel( alunoDTO.telefoneResponsavel() );
         aluno.matriculaProjeto( alunoDTO.matriculaProjeto() );
-        aluno.statusParticipacao( alunoDTO.statusParticipacao() );
         aluno.dataInscricao( alunoDTO.dataInscricao() );
         aluno.observacoes( alunoDTO.observacoes() );
 
