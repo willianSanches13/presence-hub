@@ -35,8 +35,8 @@ public class WorkshopController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Workshop> updateWorkshop(@PathVariable Long id, @RequestBody WorkshopDTO workshopDto) {
-        Workshop updatedWorkshop = workshopService.updateWorkshop(id, workshopDto);
+    public ResponseEntity<WorkshopDTO> updateWorkshop(@PathVariable Long id, @RequestBody WorkshopDTO workshopDto) {
+        WorkshopDTO updatedWorkshop = workshopService.updateWorkshop(id, workshopDto);
         return ResponseEntity.ok(updatedWorkshop);
     }
 

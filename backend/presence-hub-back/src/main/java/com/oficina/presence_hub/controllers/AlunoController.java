@@ -2,6 +2,7 @@ package com.oficina.presence_hub.controllers;
 
 import com.oficina.presence_hub.dtos.AlunoDTO;
 import com.oficina.presence_hub.services.AlunoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<AlunoDTO> createAluno(@RequestBody AlunoDTO alunoDto) {
+    public ResponseEntity<AlunoDTO> createAluno(@Valid @RequestBody AlunoDTO alunoDto) {
         AlunoDTO aluno = alunoService.createAluno(alunoDto);
         return ResponseEntity.ok(aluno);
     }
@@ -34,7 +35,7 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AlunoDTO> updateAluno(@PathVariable Long id, @RequestBody AlunoDTO alunoDto) {
+    public ResponseEntity<AlunoDTO> updateAluno(@PathVariable Long id, @Valid @RequestBody AlunoDTO alunoDto) {
         AlunoDTO updatedAluno = alunoService.updateAluno(id, alunoDto);
         return ResponseEntity.ok(updatedAluno);
     }

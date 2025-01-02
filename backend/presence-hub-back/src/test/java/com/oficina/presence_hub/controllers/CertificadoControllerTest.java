@@ -38,7 +38,7 @@ public class CertificadoControllerTest {
                 .post("/certificados")
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body("aluno.nome", equalTo("John Doe"))
+                .body("aluno.nome", equalTo("Jane Doe"))
                 .body("workshop.titulo", equalTo("Workshop 1"))
                 .body("assinaturaDigital", equalTo("new-digital-signature"));
     }

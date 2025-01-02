@@ -1,0 +1,26 @@
+### Create Participacao
+POST http://localhost:8083/participacoes
+Content-Type: application/json
+
+{
+  "aluno": {"id": 1},
+  "workshop": {"id": 1},
+  "presente": true
+}
+
+### Get All Participacoes
+GET http://localhost:8083/participacoes
+
+### Get Participacao by ID
+GET http://localhost:8083/participacoes/1
+
+### Update Participacao
+PUT http://localhost:8083/participacoes/1
+Content-Type: application/json
+
+{
+  "presente": false
+}
+
+### Delete Participacao
+DELETE http://localhost:8083/participacoes/1
