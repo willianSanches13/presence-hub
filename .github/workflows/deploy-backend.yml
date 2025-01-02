@@ -34,7 +34,7 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          source: "target/*.jar" # Caminho do JAR gerado pelo Maven
+          source: "backend/presence-hub-back/target/*.jar" # Caminho do JAR gerado pelo Maven
           target: "/home/${{ secrets.GCP_VM_USER }}/app/"
 
       # 5. Conectar via SSH e iniciar a aplicação
