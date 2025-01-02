@@ -23,7 +23,9 @@ jobs:
 
       # 3. Build do projeto com Maven
       - name: Build project
-        run: mvn clean package -DskipTests
+        run: |
+          cd backend/presence-hub-back 
+          mvn clean package -DskipTests
 
       # 4. Transferir o arquivo JAR para a VM no GCP via SCP
       - name: Transfer JAR to GCP VM
