@@ -34,10 +34,10 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          source: "backend/presence-hub-back/target/*.jar" # Caminho do JAR gerado pelo Maven
+          source: "backend/presence-hub-back/target/*.jar"
           target: "/home/${{ secrets.GCP_VM_USER }}/app/"
 
-      # 5. Garantir que a pasta de destino existe e configurar permissões
+      # 5. Garantir que a pasta de destino existe
       - name: Ensure app directory exists
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -55,8 +55,17 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          command_timeout: 15m
+          command_timeout: 20m
           script: |
+            # Finalizar instâncias antigas, se existirem
             pkill -f 'java -jar' || true
+            
+            # Iniciar nova instância em segundo plano
             nohup java -jar /home/${{ secrets.GCP_VM_USER }}/app/*.jar > /home/${{ secrets.GCP_VM_USER }}/app/app.log 2>&1 &
-            sleep 5 # Tempo para garantir que o nohup finalize corretamente
+            
+            # Remover processo da sessão para evitar problemas no runner
+            disown
+            
+            # Verificar se o processo foi iniciado corretamente
+            sleep 5
+            ps aux | grep '[j]ava -jar'
