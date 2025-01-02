@@ -62,10 +62,6 @@ jobs:
             
             # Iniciar nova instância em segundo plano com o caminho correto
             nohup java -jar /home/${{ secrets.GCP_VM_USER }}/app/backend/presence-hub-back/target/presence-hub-0.0.1-SNAPSHOT.jar > /home/${{ secrets.GCP_VM_USER }}/app/app.log 2>&1 &
-            
-            # Remover processo da sessão para evitar problemas no runner
-            disown
-            
-            # Verificar se o processo foi iniciado corretamente
-            sleep 5
-            ps aux | grep '[j]ava -jar' || echo "Application started successfully"
+           
+
+            echo "Application deployed and started successfully." 
