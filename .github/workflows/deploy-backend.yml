@@ -3,7 +3,7 @@ name: Deploy to GCP
 on:
   push:
     branches:
-      - main # Define o branch que dispara o deploy
+      - master # Define o branch que dispara o deploy
 
 jobs:
   deploy:
