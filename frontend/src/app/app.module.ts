@@ -37,6 +37,11 @@ import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import {MatSelect} from "@angular/material/select";
+import {WorkshopCrudComponent} from "./views/workshop-crud/workshop-crud.component";
+import {WorkshopCreateComponent} from "./components/workshop/workshop-create/workshop-create.component";
+import {WorkshopReadComponent} from "./components/workshop/workshop-read/workshop-read.component";
+import {WorkshopUpdateComponent} from "./components/workshop/workshop-update/workshop-update.component";
+import {WorkshopDeleteComponent} from "./components/workshop/workshop-delete/workshop-delete.component";
 
 registerLocaleData(localePt);
 
@@ -50,6 +55,11 @@ registerLocaleData(localePt);
     AlunoCrudComponent,
     AlunoCreateComponent,
     AlunoReadComponent,
+    WorkshopCrudComponent,
+    WorkshopCreateComponent,
+    WorkshopReadComponent,
+    WorkshopUpdateComponent,
+    WorkshopDeleteComponent,
     RedDirective,
     ForDirective,
     AlunoUpdateComponent,
