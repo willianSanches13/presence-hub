@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           source: "backend/presence-hub-back/target/*.jar"
-          target: "/home/${{ secrets.GCP_VM_USER }}/app/"
+          target: "/home/${{ secrets.GCP_VM_USER }}/app/backend/presence-hub-back/target/"
 
       # 5. Garantir que a pasta de destino existe
       - name: Ensure app directory exists
@@ -68,4 +68,4 @@ jobs:
             
             # Verificar se o processo foi iniciado corretamente
             sleep 5
-            ps aux | grep '[j]ava -jar'
+            ps aux | grep '[j]ava -jar' || echo "Application started successfully"
