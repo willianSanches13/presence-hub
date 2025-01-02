@@ -27,7 +27,7 @@ jobs:
 
       # 4. Transferir o arquivo JAR para a VM no GCP via SCP
       - name: Transfer JAR to GCP VM
-        uses: appleboy/scp-action@v0.2.3
+        uses: appleboy/scp-action@v0.1.0
         with:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
