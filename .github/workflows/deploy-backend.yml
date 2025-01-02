@@ -1,10 +1,3 @@
-name: Deploy to GCP
-
-on:
-  push:
-    branches:
-      - master # Define o branch que dispara o deploy
-
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -49,23 +42,25 @@ jobs:
             chmod 755 /home/${{ secrets.GCP_VM_USER }}/app
 
       # 6. Conectar via SSH e iniciar a aplicação
-      - name: Deploy and run application
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.GCP_VM_IP }}
-          username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          command_timeout: 20m
-          script: |
-            # Finalizar instâncias antigas, se existirem
-            pkill -f 'java -jar' || true
-            
-            # Iniciar nova instância em segundo plano
-            nohup java -jar /home/${{ secrets.GCP_VM_USER }}/app/*.jar > /home/${{ secrets.GCP_VM_USER }}/app/app.log 2>&1 &
-            
-            # Remover processo da sessão para evitar problemas no runner
-            disown
-            
-            # Verificar se o processo foi iniciado corretamente
-            sleep 5
-            ps aux | grep '[j]ava -jar'
+       - name: Deploy and run application
+         uses: appleboy/ssh-action@v0.1.6
+         with:
+           host: ${{ secrets.GCP_VM_IP }}
+           username: ${{ secrets.GCP_VM_USER }}
+           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+           command_timeout: 20m
+           script: |
+             # Finalizar instâncias antigas, se existirem
+             pkill -f 'java -jar' || true
+      
+             # Iniciar nova instância em segundo plano com o caminho correto
+             nohup java -jar /home/${{ secrets.GCP_VM_USER }}/app/backend/presence-hub-back/target/presence-hub-0.0.1-SNAPSHOT.jar > /home/${{ secrets.GCP_VM_USER }}/app/app.log 2>&1 &
+      
+             # Remover processo da sessão para evitar problemas no runner
+             disown
+      
+             # Verificar se o processo foi iniciado corretamente
+             sleep 5
+             ps aux | grep '[j]ava -jar'
+
+
