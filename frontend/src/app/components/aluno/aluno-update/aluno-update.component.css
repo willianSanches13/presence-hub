@@ -1,0 +1,49 @@
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+label {
+    font-weight: bold;
+}
+
+button {
+    margin: 20px 15px 0px 0px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-column {
+    flex: 1;
+    min-width: 300px;
+    padding: 10px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.action-button {
+    margin-top: 10px; /* Ajuste a distância entre os botões */
+    background-color: #ffbe00 !important;
+}
+
+.cancel-button {
+    margin-bottom: 40px; /* Adicione uma margem inferior para evitar sobreposição com o footer */
+}
+
+.center-title {
+    text-align: center;
+}
+
+.endereco-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.endereco-container mat-form-field {
+    width: 100%;
+}

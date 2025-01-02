@@ -8,8 +8,6 @@ public class PresenceHubApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PresenceHubApplication.class, args);
-
-		//teste
 	}
 
 }

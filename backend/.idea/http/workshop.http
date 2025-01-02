@@ -1,0 +1,42 @@
+### Create Workshop
+POST http://localhost:8083/workshops
+Content-Type: application/json
+
+{
+  "titulo": "Workshop Name",
+  "descricao": "Workshop Description",
+  "data": "2023-12-01T00:00:00",
+  "professor": {
+    "nome": "Professor Name",
+    "email": "professor@example.com",
+    "telefoneContato": "123456789",
+    "especializacao": "Specialization",
+    "instituicaoVinculo": "Institution"
+  }
+}
+
+### Get All Workshops
+GET http://localhost:8083/workshops
+
+### Get Workshop by ID
+GET http://localhost:8083/workshops/1
+
+### Update Workshop
+PUT http://localhost:8083/workshops/1
+Content-Type: application/json
+
+{
+  "titulo": "Workshop Name",
+  "descricao": "Workshop Description",
+  "data": "2023-12-01T00:00:00",
+  "professor": {
+    "nome": "Professor new Name",
+    "email": "professor@example.com",
+    "telefoneContato": "123456789",
+    "especializacao": "Specialization",
+    "instituicaoVinculo": "Institution"
+  }
+}
+
+### Delete Workshop
+DELETE http://localhost:8083/workshops/1

@@ -1,0 +1,49 @@
+<mat-card>
+    <mat-card-title class="center-title">Alterar Workshop</mat-card-title>
+    <form [formGroup]="workshopForm" (ngSubmit)="updateWorkshop()">
+        <div class="form-container">
+            <mat-form-field>
+                <label>Título:</label>
+                <input matInput placeholder="Título" formControlName="titulo">
+            </mat-form-field>
+            <mat-form-field>
+                <label>Descrição:</label>
+                <textarea matInput placeholder="Descrição" formControlName="descricao"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <label>Data:</label>
+                <input matInput [matDatepicker]="picker" placeholder="Data" formControlName="data">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div class="workshop-container" formGroupName="professor">
+                <mat-form-field>
+                    <label>Nome do Professor:</label>
+                    <input matInput placeholder="Nome do Professor" formControlName="nome">
+                </mat-form-field>
+                <mat-form-field>
+                    <label>Email do Professor:</label>
+                    <input matInput placeholder="Email do Professor" formControlName="email">
+                </mat-form-field>
+                <mat-form-field>
+                    <label>Telefone de Contato do Professor:</label>
+                    <input matInput placeholder="Telefone de Contato do Professor" formControlName="telefoneContato" mask="(00) 00000-0000">
+                </mat-form-field>
+                <mat-form-field>
+                    <label>Especialização do Professor:</label>
+                    <input matInput placeholder="Especialização do Professor" formControlName="especializacao">
+                </mat-form-field>
+                <mat-form-field>
+                    <label>Instituição de Vínculo do Professor:</label>
+                    <input matInput placeholder="Instituição de Vínculo do Professor" formControlName="instituicaoVinculo">
+                </mat-form-field>
+            </div>
+        </div>
+        <button mat-raised-button class="action-button" color="primary" type="submit">
+            Atualizar
+        </button>
+        <button mat-raised-button class="cancel-button" type="button" (click)="cancel()">
+            Cancelar
+        </button>
+    </form>
+</mat-card>

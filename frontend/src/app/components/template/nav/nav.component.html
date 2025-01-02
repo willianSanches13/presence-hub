@@ -1,0 +1,21 @@
+<mat-sidenav-container class="container">
+    <mat-sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="64" appHover>
+        <mat-nav-list class="nav-list">
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">home</i>
+                <span class="nav-text">Início</span>
+            </a>
+            <a mat-list-item routerLink="/alunos">
+                <i class="material-icons">school</i>
+                <span class="nav-text">Alunos</span>
+            </a>
+            <a mat-list-item routerLink="/workshops">
+                <i class="material-icons">event</i>
+                <span class="nav-text">Workshops</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-title>Excluir Workshop</mat-card-title>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Título"
+                   [value]="workshop.titulo" name="Título" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Data"
+                   [value]="workshop.data" name="data" disabled>
+        </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="deleteWorkshop()" color="warn">
+        Excluir
+    </button>
+
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>
