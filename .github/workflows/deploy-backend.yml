@@ -1,3 +1,10 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - master # Define o branch que dispara o deploy
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
