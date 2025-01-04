@@ -1,0 +1,21 @@
+<div *ngIf="workshop" class="center-content">
+    <mat-card>
+        <mat-card-content class="mat-card-content">
+            <h2>{{ workshop.titulo }}</h2>
+            <p><strong>Descrição:</strong> {{ workshop.descricao }}</p>
+            <p><strong>Data:</strong> {{ workshop.data | date }}</p>
+            <p><strong>Professor:</strong> {{ workshop.professor.nome }}</p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title class="aluno-title">Alunos Matriculados</mat-card-title>
+        <mat-card-content class="aluno-content">
+            <div *ngFor="let aluno of alunos" class="aluno-card">
+                <mat-slide-toggle (change)="registerAttendance(aluno.id, $event.checked)">
+                    {{ aluno.nome }} ({{ aluno.email }}) - Matricula: {{aluno.matriculaProjeto}}
+                </mat-slide-toggle>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

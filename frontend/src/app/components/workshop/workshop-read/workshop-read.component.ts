@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class WorkshopReadComponent implements OnInit {
 
   workshops: Workshop[];
-  displayedColumns = ['id', 'titulo', 'descricao', 'data', 'professorNome', 'action'];
+  displayedColumns = ['id', 'titulo', 'descricao', 'data', 'professorNome', 'registroPresenca', 'action'];
 
   constructor(private workshopService: WorkshopService) { }
 

@@ -12,6 +12,7 @@ import { WorkshopCrudComponent } from './views/workshop-crud/workshop-crud.compo
 import { WorkshopCreateComponent } from './components/workshop/workshop-create/workshop-create.component';
 import { WorkshopUpdateComponent } from './components/workshop/workshop-update/workshop-update.component';
 import { WorkshopDeleteComponent } from './components/workshop/workshop-delete/workshop-delete.component';
+import {WorkshopAttendanceComponent} from "./components/workshop/workshop-attendance/workshop-attendance.component";
 
 const routes: Routes = [
   {
@@ -59,6 +60,9 @@ const routes: Routes = [
     component: WorkshopDeleteComponent,
     // canActivate: [AuthGuard]
   },
+  {
+    path: 'workshops/presenca/:id',
+    component: WorkshopAttendanceComponent },
   {
     path: "login",
     component: LoginComponent

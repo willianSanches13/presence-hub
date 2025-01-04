@@ -13,3 +13,7 @@ table {
 .delete > i {
     color: #e35e6b;
 }
+
+.assignment > i {
+    color: #1e90ff;
+}

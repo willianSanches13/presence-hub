@@ -42,6 +42,10 @@ import {WorkshopCreateComponent} from "./components/workshop/workshop-create/wor
 import {WorkshopReadComponent} from "./components/workshop/workshop-read/workshop-read.component";
 import {WorkshopUpdateComponent} from "./components/workshop/workshop-update/workshop-update.component";
 import {WorkshopDeleteComponent} from "./components/workshop/workshop-delete/workshop-delete.component";
+import {WorkshopAttendanceComponent} from "./components/workshop/workshop-attendance/workshop-attendance.component";
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 registerLocaleData(localePt);
 
@@ -54,6 +58,7 @@ registerLocaleData(localePt);
     HomeComponent,
     AlunoCrudComponent,
     AlunoCreateComponent,
+    WorkshopAttendanceComponent,
     AlunoReadComponent,
     WorkshopCrudComponent,
     WorkshopCreateComponent,
@@ -91,7 +96,11 @@ registerLocaleData(localePt);
     NgxMaskDirective,
     NgxMaskPipe,
     MatSelect,
-    MatOption
+    MatOption,
+    MatRadioGroup,
+    MatRadioButton,
+    MatCheckbox,
+    MatSlideToggle
   ],
   providers: [
     {

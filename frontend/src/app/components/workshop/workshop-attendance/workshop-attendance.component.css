@@ -1,0 +1,33 @@
+/* presence-hub/frontend/src/app/components/workshop/workshop-attendance/workshop-attendance.component.css */
+.aluno-card {
+    margin-top: 10px;
+}
+
+mat-card {
+    margin-bottom: 20px;
+}
+
+mat-radio-button {
+    display: flex;
+    align-items: center;
+}
+
+.mat-card-content {
+    text-align: center;
+}
+
+.aluno-title{
+    text-align: center;
+}
+
+.aluno-content{
+    text-align: center;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #49c5b6;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #49c5b6;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from "@angular/material/snack-bar";
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import { Workshop } from "./workshop.model";
 import { Observable, EMPTY } from "rxjs";
 import { environment } from 'src/environments/environment';
@@ -11,6 +11,7 @@ import { map, catchError } from "rxjs/operators";
 })
 export class WorkshopService {
   baseUrl = `${environment.environmentbaseUrl}/workshops`;
+
 
   constructor(private snackBar: MatSnackBar, private http: HttpClient) {}
 
@@ -61,6 +62,15 @@ export class WorkshopService {
   delete(id: number): Observable<Workshop> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.delete<Workshop>(url).pipe(
+        map((obj) => obj),
+        catchError((e) => this.errorHandler(e))
+    );
+  }
+
+  registerAttendance(alunoId: number, workshopId: number, presenca: boolean): Observable<any> {
+    const url = `${this.baseUrl}/${workshopId}/participacoes/alunos/${alunoId}`;
+    const params = new HttpParams().set('presenca', presenca.toString());
+    return this.http.put(url, {}, { params }).pipe(
         map((obj) => obj),
         catchError((e) => this.errorHandler(e))
     );
