@@ -37,17 +37,6 @@ jobs:
           source: "backend/presence-hub-back/target/*.jar"
           target: "/home/${{ secrets.GCP_VM_USER }}/app/"
 
-      # 5. Garantir que a pasta de destino existe
-      - name: Ensure app directory exists
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.GCP_VM_IP }}
-          username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          script: |
-            mkdir -p /home/${{ secrets.GCP_VM_USER }}/app
-            chmod 755 /home/${{ secrets.GCP_VM_USER }}/app
-
       # 6. Conectar via SSH e iniciar a aplicação
       - name: Deploy and run application
         uses: appleboy/ssh-action@v0.1.6
@@ -57,14 +46,5 @@ jobs:
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           command_timeout: 20m
           script: |
-            echo "Finalizando processos antigos, se existirem..."
-            pkill -f 'java -jar' || true
-
-            echo "Iniciando nova aplicação..."
-            setsid java -jar /home/${{ secrets.GCP_VM_USER }}/app/backend/presence-hub-back/target/presence-hub-0.0.1-SNAPSHOT.jar > /home/${{ secrets.GCP_VM_USER }}/app/app.log 2>&1 &
-            sleep 5
-
-            echo "Verificando se o processo está rodando..."
-            ps aux | grep '[j]ava -jar'
-
-            echo "Verificação finalizada. Deploy concluído com sucesso."
+            echo "Reiniciando a VM para aplicar alterações..."
+            sudo reboot
