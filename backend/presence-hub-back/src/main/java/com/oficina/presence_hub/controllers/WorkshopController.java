@@ -40,6 +40,15 @@ public class WorkshopController {
         return ResponseEntity.ok(updatedWorkshop);
     }
 
+    @PutMapping("/{workShopId}/participacoes/alunos/{alunoId}")
+    public ResponseEntity<WorkshopDTO> updateParticipacoes(
+            @PathVariable Long workShopId,
+            @PathVariable Long alunoId,
+            @RequestParam boolean presenca) {
+        workshopService.updateParticipacoes(workShopId, alunoId, presenca);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWorkshop(@PathVariable Long id) {
         workshopService.deleteWorkshop(id);
