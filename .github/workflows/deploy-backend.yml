@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           source: "backend/presence-hub-back/target/*.jar"
-          target: "/home/${{ secrets.GCP_VM_USER }}/app/backend/presence-hub-back/target/"
+          target: "/home/${{ secrets.GCP_VM_USER }}/app/"
 
       # 5. Garantir que a pasta de destino existe
       - name: Ensure app directory exists
