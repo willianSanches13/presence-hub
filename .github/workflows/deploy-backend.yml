@@ -3,31 +3,27 @@ name: Deploy to GCP
 on:
   push:
     branches:
-      - master # Define o branch que dispara o deploy
+      - master 
 
 jobs:
   deploy:
     runs-on: ubuntu-22.04
 
     steps:
-      # 1. Checkout do código
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Configurar o Java para o build
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Build do projeto com Maven
       - name: Build project
         run: |
           cd backend/presence-hub-back
           mvn clean package -DskipTests
 
-      # 4. Transferir o arquivo JAR para a VM no GCP via SCP
       - name: Transfer JAR to GCP VM
         uses: appleboy/scp-action@v0.1.0
         with:
@@ -37,7 +33,6 @@ jobs:
           source: "backend/presence-hub-back/target/*.jar"
           target: "/home/${{ secrets.GCP_VM_USER }}/app/"
 
-      # 6. Conectar via SSH e iniciar a aplicação
       - name: Deploy and run application
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -47,4 +42,4 @@ jobs:
           command_timeout: 20m
           script: |
             echo "Reiniciando a VM para aplicar alterações..."
-            (sudo reboot && echo "Comando de reboot iniciado com sucesso.") || true
+            nohup sudo reboot &
