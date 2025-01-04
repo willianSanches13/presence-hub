@@ -47,4 +47,4 @@ jobs:
           command_timeout: 20m
           script: |
             echo "Reiniciando a VM para aplicar alterações..."
-            sudo reboot
+            (sudo reboot && echo "Comando de reboot iniciado com sucesso.") || true
