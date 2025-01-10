@@ -1,16 +1,15 @@
-package utils;
+package com.oficina.presence_hub.services;
 
 import com.oficina.presence_hub.dtos.AlunoDTO;
 import com.oficina.presence_hub.dtos.CertificadoDTO;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.entities.Aluno;
-import com.oficina.presence_hub.entities.Endereco;
-import com.oficina.presence_hub.enums.UfEnum;
+import com.oficina.presence_hub.entities.Professor;
+import com.oficina.presence_hub.entities.Workshop;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
-
-import com.oficina.presence_hub.enums.SerieEnum;
 
 public class TestUtils {
 
@@ -71,14 +70,12 @@ public class TestUtils {
     public static CertificadoDTO buildCertificadoDTO() {
         return CertificadoDTO.builder()
                 .id(1L)
-                .assinaturaDigital("new-digital-signature")
                 .dataEmissao(LocalDate.now())
                 .build();
     }
 
     public static CertificadoDTO buildCertificadoDTOwithoutId() {
         return CertificadoDTO.builder()
-                .assinaturaDigital("new-digital-signature")
                 .dataEmissao(LocalDate.now())
                 .build();
     }
@@ -107,6 +104,18 @@ public class TestUtils {
                 .observacoes("No observations")
                 .participacoes(Collections.emptyList())
                 .certificados(Collections.emptyList())
+                .build();
+    }
+
+    public static Workshop buildWorkshop() {
+        return Workshop.builder()
+                .titulo("Workshop Title")
+                .descricao("Workshop Description")
+                .data(LocalDate.of(2023, 12, 1))
+                .horaInicio(LocalDateTime.of(2023, 12, 1, 9, 0))
+                .horaFim(LocalDateTime.of(2023, 12, 1, 17, 0))
+                .certificadosGerados(false)
+                .professor(new Professor(1L, "Professor Name", "professor@example.com", "123-456-7890", "Specialization", "Institution"))
                 .build();
     }
 

@@ -16,11 +16,11 @@ public class CertificadoController {
     @Autowired
     private CertificadoService certificadoService;
 
-    @PostMapping
-    public ResponseEntity<CertificadoDTO> createCertificado(@RequestBody CertificadoDTO certificadoDto) {
-        CertificadoDTO createdCertificado = certificadoService.createCertificado(certificadoDto);
-        return ResponseEntity.ok(createdCertificado);
-    }
+//    @PostMapping
+//    public ResponseEntity<CertificadoDTO> createCertificado(@RequestBody CertificadoDTO certificadoDto) {
+//        CertificadoDTO createdCertificado = certificadoService.createCertificado(certificadoDto);
+//        return ResponseEntity.ok(createdCertificado);
+//    }
 
     @GetMapping
     public ResponseEntity<List<CertificadoDTO>> getAllCertificados() {

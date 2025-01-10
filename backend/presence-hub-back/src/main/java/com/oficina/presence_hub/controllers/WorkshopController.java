@@ -54,4 +54,12 @@ public class WorkshopController {
         workshopService.deleteWorkshop(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{workShopId}/certificados/alunos/{alunoId}")
+    public ResponseEntity<WorkshopDTO> createCertificados(
+            @PathVariable Long workShopId,
+            @PathVariable Long alunoId) {
+        workshopService.createCertificados(workShopId, alunoId);
+        return ResponseEntity.noContent().build();
+    }
 }

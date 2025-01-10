@@ -15,6 +15,7 @@ import com.oficina.presence_hub.entities.Endereco;
 import com.oficina.presence_hub.entities.Participacao;
 import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
+import com.oficina.presence_hub.entities.Workshop.WorkshopBuilder;
 import com.oficina.presence_hub.enums.UfEnum;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-04T14:28:41-0300",
+    date = "2025-01-09T17:51:16-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -262,16 +263,19 @@ public class AlunoMapperImpl implements AlunoMapper {
             return null;
         }
 
-        Workshop workshop = new Workshop();
+        WorkshopBuilder workshop = Workshop.builder();
 
-        workshop.setId( workshopDTO.id() );
-        workshop.setTitulo( workshopDTO.titulo() );
-        workshop.setDescricao( workshopDTO.descricao() );
-        workshop.setData( workshopDTO.data() );
-        workshop.setProfessor( professorDTOToProfessor( workshopDTO.professor() ) );
-        workshop.setParticipacoes( participacaoDTOListToParticipacaoList( workshopDTO.participacoes() ) );
+        workshop.id( workshopDTO.id() );
+        workshop.titulo( workshopDTO.titulo() );
+        workshop.descricao( workshopDTO.descricao() );
+        workshop.data( workshopDTO.data() );
+        workshop.horaInicio( workshopDTO.horaInicio() );
+        workshop.horaFim( workshopDTO.horaFim() );
+        workshop.certificadosGerados( workshopDTO.certificadosGerados() );
+        workshop.professor( professorDTOToProfessor( workshopDTO.professor() ) );
+        workshop.participacoes( participacaoDTOListToParticipacaoList( workshopDTO.participacoes() ) );
 
-        return workshop;
+        return workshop.build();
     }
 
     protected Participacao participacaoDTOToParticipacao(ParticipacaoDTO participacaoDTO) {
@@ -301,6 +305,7 @@ public class AlunoMapperImpl implements AlunoMapper {
         certificado.setWorkshop( workshopDTOToWorkshop( certificadoDTO.workshop() ) );
         certificado.setAssinaturaDigital( certificadoDTO.assinaturaDigital() );
         certificado.setDataEmissao( certificadoDTO.dataEmissao() );
+        certificado.setPath( certificadoDTO.path() );
 
         return certificado;
     }

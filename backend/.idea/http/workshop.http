@@ -6,6 +6,8 @@ Content-Type: application/json
   "titulo": "Workshop Name",
   "descricao": "Workshop Description",
   "data": "2023-12-01T00:00:00",
+  "horaInicio": "2023-12-01T09:00:00",
+  "horaFim": "2023-12-01T17:00:00",
   "professor": {
     "nome": "Professor Name",
     "email": "professor@example.com",
@@ -37,6 +39,10 @@ Content-Type: application/json
     "instituicaoVinculo": "Institution"
   }
 }
+
+### Create Certificados for Aluno in Workshop
+POST http://localhost:8083/workshops/1/certificados/alunos/1
+Content-Type: application/json
 
 ### Delete Workshop
 DELETE http://localhost:8083/workshops/1

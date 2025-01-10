@@ -36,6 +36,9 @@ public class WorkshopService {
     @Autowired
     ParticipacaoService participacaoService;
 
+    @Autowired
+    CertificadoService certificadoService;
+
     public WorkshopDTO createWorkshop(WorkshopDTO workshopDto) {
         log.info("Creating Workshop: {}", workshopDto);
         try {
@@ -109,5 +112,10 @@ public class WorkshopService {
         }
 
         log.info("Participacoes updated successfully for alunoId: {} and workShopId: {}", alunoId, workShopId);
+    }
+
+    public void createCertificados(Long workshopId, Long alunoId){
+        //todo, receber uma lista de alunos talvez
+        certificadoService.createCertificado(workshopId, alunoId);
     }
 }

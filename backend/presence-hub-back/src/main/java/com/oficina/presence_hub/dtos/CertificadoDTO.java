@@ -6,4 +6,4 @@ import lombok.Builder;
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Builder
-public record CertificadoDTO(Long id, AlunoDTO aluno, WorkshopDTO workshop, String assinaturaDigital, LocalDate dataEmissao) {}
+public record CertificadoDTO(Long id, LocalDate dataEmissao, String path) {}
