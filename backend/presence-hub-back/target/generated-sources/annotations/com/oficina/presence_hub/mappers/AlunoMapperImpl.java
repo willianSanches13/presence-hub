@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-09T17:51:16-0300",
+    date = "2025-01-15T14:40:18-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -301,9 +301,6 @@ public class AlunoMapperImpl implements AlunoMapper {
         Certificado certificado = new Certificado();
 
         certificado.setId( certificadoDTO.id() );
-        certificado.setAluno( toAluno( certificadoDTO.aluno() ) );
-        certificado.setWorkshop( workshopDTOToWorkshop( certificadoDTO.workshop() ) );
-        certificado.setAssinaturaDigital( certificadoDTO.assinaturaDigital() );
         certificado.setDataEmissao( certificadoDTO.dataEmissao() );
         certificado.setPath( certificadoDTO.path() );
 

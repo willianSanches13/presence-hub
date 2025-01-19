@@ -9,6 +9,7 @@ import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
 
 public class TestUtils {
@@ -112,8 +113,8 @@ public class TestUtils {
                 .titulo("Workshop Title")
                 .descricao("Workshop Description")
                 .data(LocalDate.of(2023, 12, 1))
-                .horaInicio(LocalDateTime.of(2023, 12, 1, 9, 0))
-                .horaFim(LocalDateTime.of(2023, 12, 1, 17, 0))
+                .horaInicio(LocalTime.of(12, 1, 9, 0))
+                .horaFim(LocalTime.of(12, 1, 17, 0))
                 .certificadosGerados(false)
                 .professor(new Professor(1L, "Professor Name", "professor@example.com", "123-456-7890", "Specialization", "Institution"))
                 .build();

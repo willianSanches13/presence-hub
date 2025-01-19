@@ -16,6 +16,7 @@ public interface CertificadoMapper {
     @Mapping(target = "aluno.certificados", ignore = true)
     @Mapping(target = "aluno.participacoes", ignore = true)
     @Mapping(target = "workshop.participacoes", ignore = true)
+    @Mapping(target = "workshopName", source = "workshop.titulo")
     CertificadoDTO toCertificadoDTO(Certificado certificado);
 
     @Mapping(target = "workshop.participacoes", ignore = true)

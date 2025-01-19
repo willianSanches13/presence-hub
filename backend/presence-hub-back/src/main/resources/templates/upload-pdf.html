@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Faça o Upload e Valide seu Certificado</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Upload and Validate PDF</h1>
+    <form action="#" th:action="@{/certificados/validate}" method="post" enctype="multipart/form-data">
+        <label for="file">PDF File:</label>
+        <input type="file" id="file" name="file" required>
+        <button type="submit">Validar</button>
+    </form>
+    <div class="message" th:if="${isValid != null}">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var isValid = /*[[${isValid}]]*/ false;
+            if (isValid) {
+                alert('Seu certificado é válido');
+            } else {
+                alert('Seu certificado é inválido');
+            }
+            /*]]>*/
+        </script>
+    </div>
+    <div class="message" th:if="${error != null}">
+        <p th:text="${error}"></p>
+    </div>
+</div>
+</body>
+</html>

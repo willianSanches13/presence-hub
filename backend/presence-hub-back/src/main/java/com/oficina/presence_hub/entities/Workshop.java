@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,11 +38,11 @@ public class Workshop {
     private String titulo;
     private String descricao;
     private LocalDate data;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFim;
+    private LocalTime horaInicio;
+    private LocalTime horaFim;
     private boolean certificadosGerados;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Professor professor;
 
     @OneToMany(mappedBy = "workshop", cascade = CascadeType.ALL, orphanRemoval = true)

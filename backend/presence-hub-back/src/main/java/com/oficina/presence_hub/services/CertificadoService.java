@@ -34,11 +34,14 @@ import com.oficina.presence_hub.mappers.CertificadoMapper;
 import com.oficina.presence_hub.repositories.AlunoRepository;
 import com.oficina.presence_hub.repositories.CertificadoRepository;
 import com.oficina.presence_hub.repositories.WorkshopRepository;
+import jakarta.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.Security;
@@ -48,15 +51,20 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Slf4j
+@Getter
+@Setter
 public class CertificadoService {
 
     @Autowired
@@ -71,13 +79,15 @@ public class CertificadoService {
     @Autowired
     private WorkshopRepository workshopRepository;
 
-    public void createCertificado(Long workshopId, Long alunoId) {
-        log.info("Creating Certificado for workshopId: {} and alunoId: {}", workshopId, alunoId);
+    @Autowired
+    private EmailService emailService;
+
+    public void createCertificado(Workshop workshop, Long alunoId) {
+        log.info("Creating Certificado for workshopId: {} and alunoId: {}", workshop.getId(), alunoId);
         Certificado certificado = new Certificado();
         Aluno aluno = findAluno(alunoId);
-        Workshop workshop = findWorkshop(workshopId);
         if (!alunoParticipouDoWorkshop(aluno, workshop)) {
-            log.info("Aluno with id: {} did not participate in workshop with id: {}", alunoId, workshopId);
+            log.info("Aluno with id: {} did not participate in workshop with id: {}", alunoId, workshop.getId());
             return;
         }
         certificado.setAluno(aluno);
@@ -87,6 +97,7 @@ public class CertificadoService {
             String url = gerarCertificado(certificado);
             certificado.setPath(url);
             log.info("Certificado generated successfully for alunoId: {}", alunoId);
+            sendEmailWithCertificadoLink(aluno.getEmail(), url);
         } catch (Exception e) {
             log.error("Error generating Certificado for alunoId: {}", alunoId, e);
             throw new RuntimeException(e);
@@ -150,8 +161,8 @@ public class CertificadoService {
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(caminhoCertificado));
         document.open();
 
-        String templatePath = System.getenv("TEMPLATE_PATH");
-        Image fundo = Image.getInstance(templatePath);
+        ClassPathResource imgFile = new ClassPathResource("templates/certificado.png");
+        Image fundo = Image.getInstance(imgFile.getURL());
 
         float pageWidth = PageSize.A4.rotate().getWidth();
         float pageHeight = PageSize.A4.rotate().getHeight();
@@ -185,19 +196,11 @@ public class CertificadoService {
                 PageSize.A4.getWidth() - 179, 230, 0);
 
         document.close();
-        workshop.setCertificadosGerados(true);
         String certificadoAssinado = assinarCertificado(certificado, caminhoCertificado);
 
-        String bucketName = System.getenv("GCP_BUCKET_NAME");
-        Storage storage = StorageOptions.getDefaultInstance().getService();
-        BlobId blobId = BlobId.of(bucketName, "certificados/" + fileName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-        Path path = Path.of(certificadoAssinado);
-        Blob blob = storage.createFrom(blobInfo, path);
-        log.info("Certificado uploaded to GCP bucket: {}/certificados/{}", bucketName, fileName);
-        Files.delete(path);
-        return "https://storage.cloud.google.com/presence_hub_certificados/" + blob.getBlobId().getName();
+        return publishToGcpBucket(fileName, certificadoAssinado);
     }
+
 
     private String assinarCertificado(Certificado certificado, String caminhoPdf) throws Exception {
 
@@ -259,7 +262,30 @@ public class CertificadoService {
                 .anyMatch(e -> Objects.equals(e.getWorkshop().getId(), workshop.getId()) && e.isPresente());
     }
 
-    public static boolean validatePdfSignatureFromBase64(String base64) throws Exception {
+    private static String publishToGcpBucket(String fileName, String certificadoAssinado) throws IOException {
+        String bucketName = System.getenv("GCP_BUCKET_NAME");
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+        BlobId blobId = BlobId.of(bucketName, "certificados/" + fileName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+        Path path = Path.of(certificadoAssinado);
+        Blob blob = storage.createFrom(blobInfo, path);
+        log.info("Certificado uploaded to GCP bucket: {}/certificados/{}", bucketName, fileName);
+        Files.delete(path);
+        return "https://storage.cloud.google.com/presence_hub_certificados/" + blob.getBlobId().getName();
+    }
+
+
+    private void sendEmailWithCertificadoLink(String email, String url) {
+        String subject = "Seu certificado está pronto";
+        try {
+            emailService.sendEmail(email, subject, url);
+        } catch (Exception e) {
+            log.error("Error sending email to: {}", email, e);
+        }
+    }
+
+
+    public boolean validarAssinatura(String base64) {
         Security.addProvider(new BouncyCastleProvider());
         String securityProvider = BouncyCastleProvider.PROVIDER_NAME;
         byte[] pdfBytes = Base64.getDecoder().decode(base64);
@@ -287,6 +313,8 @@ public class CertificadoService {
                     return false;
                 }
             }
+        } catch (IOException | GeneralSecurityException e) {
+            throw new RuntimeException(e);
         }
 
         log.info("All signatures are valid.");

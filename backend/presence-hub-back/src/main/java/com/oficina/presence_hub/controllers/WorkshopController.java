@@ -1,8 +1,10 @@
 package com.oficina.presence_hub.controllers;
 
+import com.oficina.presence_hub.controllers.resources.CreateCertificadosResource;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.entities.Workshop;
 import com.oficina.presence_hub.services.WorkshopService;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,11 +57,11 @@ public class WorkshopController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{workShopId}/certificados/alunos/{alunoId}")
-    public ResponseEntity<WorkshopDTO> createCertificados(
+    @PostMapping("/{workShopId}/certificados/alunos")
+    public ResponseEntity<String>  createCertificados(
             @PathVariable Long workShopId,
-            @PathVariable Long alunoId) {
-        workshopService.createCertificados(workShopId, alunoId);
-        return ResponseEntity.noContent().build();
+            @RequestBody CreateCertificadosResource createCertificadosResource) {
+        workshopService.createCertificados(workShopId, createCertificadosResource);
+        return ResponseEntity.accepted().build();
     }
 }
