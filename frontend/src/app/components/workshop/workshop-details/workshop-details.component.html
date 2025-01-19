@@ -1,0 +1,48 @@
+<mat-card>
+    <mat-card-title class="center-title">Detalhes do Workshop</mat-card-title>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>
+                <strong>Título:</strong> {{ workshopForm.get('titulo')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Descrição:</strong> {{ workshopForm.get('descricao')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Data:</strong> {{ workshopForm.get('data')?.value | date }}
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <strong>Nome do Professor:</strong> {{ workshopForm.get('professor.nome')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Email do Professor:</strong> {{ workshopForm.get('professor.email')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Telefone de Contato do Professor:</strong> {{ workshopForm.get('professor.telefoneContato')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Especialização do Professor:</strong> {{ workshopForm.get('professor.especializacao')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Instituição de Vínculo do Professor:</strong> {{ workshopForm.get('professor.instituicaoVinculo')?.value }}
+            </mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <h3>Participantes</h3>
+        <mat-list *ngFor="let participacao of participacoes">
+            <mat-list-item>
+                <strong>Nome:</strong> {{ participacao.aluno.nome }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Email:</strong> {{ participacao.aluno.email }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Presente:</strong> {{ participacao.presente ? 'Sim' : 'Não' }}
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+    <button mat-raised-button class="cancel-button" type="button" (click)="cancel()">
+        Voltar
+    </button>
+</mat-card>

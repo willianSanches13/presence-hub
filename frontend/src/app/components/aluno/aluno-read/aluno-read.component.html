@@ -40,6 +40,11 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Ações</th>
             <td mat-cell *matCellDef="let row">
+                <a routerLink="/alunos/details/{{ row.id }}" class="detail">
+                    <i class="material-icons">
+                        info
+                    </i>
+                </a>
                 <a routerLink="/alunos/update/{{ row.id }}" class="edit">
                     <i class="material-icons">
                         edit

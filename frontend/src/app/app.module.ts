@@ -46,12 +46,17 @@ import {WorkshopAttendanceComponent} from "./components/workshop/workshop-attend
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {MatDialogModule} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "./components/workshop/workshop-attendance/confirmation-dialog.component";
+import {WorkshopDetailsComponent} from "./components/workshop/workshop-details/workshop-details.component";
+import {AlunoDetailsComponent} from "./components/aluno/aluno-details/aluno-details.component";
+import {HideNavDirective} from "./directives/hidenav.directive";
 
 registerLocaleData(localePt);
-
 @NgModule({
   declarations: [
     HeaderComponent,
+    HideNavDirective,
     FooterComponent,
     NavComponent,
     AppComponent,
@@ -62,18 +67,22 @@ registerLocaleData(localePt);
     AlunoReadComponent,
     WorkshopCrudComponent,
     WorkshopCreateComponent,
+    ConfirmationDialogComponent,
     WorkshopReadComponent,
     WorkshopUpdateComponent,
     WorkshopDeleteComponent,
     RedDirective,
+    WorkshopDetailsComponent,
+    AlunoDetailsComponent,
     ForDirective,
     AlunoUpdateComponent,
     AlunoDeleteComponent,
     HoverDirective,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
+    MatDialogModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -107,7 +116,7 @@ registerLocaleData(localePt);
       provide: LOCALE_ID,
       useValue: 'pt-BR'
     },
-    provideNgxMask()
+    provideNgxMask(),
   ],
   bootstrap: [AppComponent]
 })

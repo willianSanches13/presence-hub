@@ -23,4 +23,12 @@ export interface Aluno {
     matriculaProjeto?: string;
     dataInscricao?: Date;
     observacoes?: string;
+    certificados?: Certificado[];
+}
+
+export interface Certificado {
+    id: number;
+    dataEmissao: string;
+    workshopName: string;
+    path: string;
 }

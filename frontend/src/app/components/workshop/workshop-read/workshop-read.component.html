@@ -27,29 +27,36 @@
 
 
         <ng-container matColumnDef="registroPresenca">
-            <th mat-header-cell *matHeaderCellDef>Registro de Presença</th>
+            <th mat-header-cell *matHeaderCellDef>Chamada</th>
             <td mat-cell *matCellDef="let row">
-                <a routerLink="/workshops/presenca/{{ row.id }}" class="assignment">
+                <a *ngIf="!row.certificadosGerados" routerLink="/workshops/presenca/{{ row.id }}" class="assignment">
                     <i class="material-icons">
                         assignment
                     </i>
                 </a>
+                <i *ngIf="row.certificadosGerados" class="material-icons check-circle">
+                    check_circle
+                </i>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Ações</th>
             <td mat-cell *matCellDef="let row">
-                <a routerLink="/workshops/update/{{ row.id }}" class="edit">
-                    <i class="material-icons">
-                        edit
-                    </i>
+                <a routerLink="/workshops/details/{{ row.id }}" class="details">
+                    <i class="material-icons">info</i>
                 </a>
-                <a routerLink="/workshops/delete/{{ row.id }}" class="delete">
-                    <i class="material-icons">
-                        delete
-                    </i>
-                </a>
+                <ng-container *ngIf="!row.certificadosGerados; else blockedIcon">
+                    <a routerLink="/workshops/update/{{ row.id }}" class="edit">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    <a routerLink="/workshops/delete/{{ row.id }}" class="delete">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </ng-container>
+                <ng-template #blockedIcon>
+                    <i class="material-icons">block</i>
+                </ng-template>
             </td>
         </ng-container>
 

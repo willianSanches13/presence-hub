@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Confirm Action</h1>
+<div mat-dialog-content>
+    <p>Você tem certeza que deseja gerar os certificados?</p>
+    <p>Após gerar os certificados, o workshop não poderá ser modificado e nem realizar nova chamada.</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cacelar</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirmar</button>
+</div>

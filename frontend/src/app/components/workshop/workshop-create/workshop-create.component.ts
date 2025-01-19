@@ -20,6 +20,8 @@ export class WorkshopCreateComponent implements OnInit {
       titulo: ['', Validators.required],
       descricao: ['', Validators.required],
       data: [null, Validators.required],
+      horaInicio: ['', Validators.required],
+      horaFim: ['', Validators.required],
       professor: this.fb.group({
         nome: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],

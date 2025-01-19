@@ -76,6 +76,13 @@ export class WorkshopService {
     );
   }
 
+  createCertificados(workshopId: number, alunosIds: number[]): Observable<void> {
+    const url = `${this.baseUrl}/${workshopId}/certificados/alunos`;
+    return this.http.post<void>(url, { alunosIds }).pipe(
+        catchError((e) => this.errorHandler(e))
+    );
+  }
+
   errorHandler(e: any): Observable<any> {
     this.showMessage("Ocorreu um erro!", true);
     return EMPTY;
