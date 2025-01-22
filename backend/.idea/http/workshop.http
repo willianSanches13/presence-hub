@@ -47,7 +47,7 @@ POST http://localhost:8083/workshops/1/certificados/alunos
 Content-Type: application/json
 
 {
-  "alunosIds": [1, 2]
+  "alunosIds": [1]
 }
 
 

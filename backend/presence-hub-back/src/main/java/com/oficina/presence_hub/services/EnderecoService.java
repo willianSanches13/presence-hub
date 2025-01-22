@@ -23,11 +23,6 @@ public class EnderecoService {
         return enderecoRepository.save(endereco);
     }
 
-    public List<EnderecoDTO> getAllEnderecos() {
-        List<Endereco> enderecos = enderecoRepository.findAll();
-        return enderecoMapper.toEnderecoDTO(enderecos);
-    }
-
     public Endereco getEnderecoById(Long id) {
         return enderecoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Endereco not found"));
@@ -39,9 +34,4 @@ public class EnderecoService {
         return enderecoRepository.save(endereco);
     }
 
-    public void deleteEndereco(Long id) {
-        Endereco endereco = enderecoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Endereco not found"));
-        enderecoRepository.delete(endereco);
-    }
 }

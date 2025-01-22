@@ -16,14 +16,19 @@ import com.itextpdf.signatures.PdfSignatureAppearance;
 import com.itextpdf.signatures.PdfSigner;
 import com.itextpdf.signatures.PrivateKeySignature;
 import com.itextpdf.signatures.SignatureUtil;
+import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfAction;
+import com.itextpdf.text.pdf.PdfAnnotation;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.oficina.presence_hub.dtos.CertificadoDTO;
@@ -34,13 +39,13 @@ import com.oficina.presence_hub.mappers.CertificadoMapper;
 import com.oficina.presence_hub.repositories.AlunoRepository;
 import com.oficina.presence_hub.repositories.CertificadoRepository;
 import com.oficina.presence_hub.repositories.WorkshopRepository;
-import jakarta.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
@@ -56,6 +61,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -82,6 +88,12 @@ public class CertificadoService {
     @Autowired
     private EmailService emailService;
 
+    @Value("${gcp.bucket.url}")
+    private String gcpBucketUrl;
+
+    @Value("${validate.url}")
+    private String validateUrl;
+
     public void createCertificado(Workshop workshop, Long alunoId) {
         log.info("Creating Certificado for workshopId: {} and alunoId: {}", workshop.getId(), alunoId);
         Certificado certificado = new Certificado();
@@ -105,50 +117,10 @@ public class CertificadoService {
         certificadoRepository.save(certificado);
     }
 
-
-    public List<CertificadoDTO> getAllCertificados() {
-        return certificadoMapper.toCertificadoDTO(certificadoRepository.findAll());
-    }
-
-    public CertificadoDTO getCertificadoById(Long id) {
-        Certificado certificado = certificadoRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Certificado not found"));
-
-        return certificadoMapper.toCertificadoDTO(certificado);
-    }
-
-    public Certificado updateCertificado(Long id, CertificadoDTO certificadoDTO) {
-        log.info("Updating Certificado with id: {}", id);
-        Certificado certificado = certificadoRepository.findById(id).orElseThrow(() -> {
-            log.error("Certificado not found with id: {}", id);
-            return new ResponseStatusException(HttpStatus.NOT_FOUND, "Certificado not found");
-        });
-        certificadoMapper.updateCertificadoFromDTO(certificadoDTO, certificado);
-        try {
-            Certificado updatedCertificado = certificadoRepository.save(certificado);
-            log.info("Certificado updated successfully with id: {}", id);
-            return updatedCertificado;
-        } catch (Exception e) {
-            log.error("Error saving Certificado with id: {}", id, e);
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error saving Certificado", e);
-        }
-    }
-
-    public void deleteCertificado(Long id) {
-        Certificado certificado = certificadoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Certificado not found"));
-        certificadoRepository.delete(certificado);
-    }
-
     private Aluno findAluno(Long id) {
         return alunoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
     }
-
-    private Workshop findWorkshop(Long id) {
-        return workshopRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Workshop não encontrado"));
-    }
-
 
     public String gerarCertificado(Certificado certificado) throws Exception {
         Document document = new Document(PageSize.A4.rotate());
@@ -157,8 +129,9 @@ public class CertificadoService {
         Workshop workshop = certificado.getWorkshop();
         String fileName = aluno.getNome().replace(" ", "_") +
                 LocalDateTime.now() + "_certificado.pdf";
-        String caminhoCertificado = System.getenv("CERTIFICADO_PATH") + fileName;
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(caminhoCertificado));
+        Path certificadoPath = Paths.get("src/main/resources/certificados", fileName);
+        Files.createDirectories(certificadoPath.getParent());
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(certificadoPath.toFile()));
         document.open();
 
         ClassPathResource imgFile = new ClassPathResource("templates/certificado.png");
@@ -195,10 +168,39 @@ public class CertificadoService {
                 new Phrase("Com duração de " + workshop.getDuration(), fontData),
                 PageSize.A4.getWidth() - 179, 230, 0);
 
-        document.close();
-        String certificadoAssinado = assinarCertificado(certificado, caminhoCertificado);
+        String linkText = "Clique para validar certificado";
 
-        return publishToGcpBucket(fileName, certificadoAssinado);
+        Phrase phrase = new Phrase(linkText, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.UNDERLINE, BaseColor.BLUE));
+
+        float textX = PageSize.A4.getWidth() - 179;
+        float textY = 190;
+
+        ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, phrase, textX, textY, 0);
+
+        float textWidth = 120;
+        float textHeight = 15;
+        Rectangle linkLocation = new Rectangle(
+                textX - textWidth / 2,
+                textY - textHeight / 2,
+                textX + textWidth / 2,
+                textY + textHeight / 2
+        );
+
+        PdfAction action = new PdfAction(validateUrl);
+
+        PdfAnnotation linkAnnotation = PdfAnnotation.createLink(
+                canvas.getPdfWriter(),
+                linkLocation,
+                PdfAnnotation.HIGHLIGHT_INVERT,
+                action
+        );
+
+        canvas.getPdfWriter().addAnnotation(linkAnnotation);
+
+        document.close();
+        String certificadoAssinado = assinarCertificado(certificado, certificadoPath.toString());
+
+        return publicarNoBucket(fileName, certificadoAssinado);
     }
 
 
@@ -262,7 +264,7 @@ public class CertificadoService {
                 .anyMatch(e -> Objects.equals(e.getWorkshop().getId(), workshop.getId()) && e.isPresente());
     }
 
-    private static String publishToGcpBucket(String fileName, String certificadoAssinado) throws IOException {
+    private static String publicarNoBucket(String fileName, String certificadoAssinado) throws IOException {
         String bucketName = System.getenv("GCP_BUCKET_NAME");
         Storage storage = StorageOptions.getDefaultInstance().getService();
         BlobId blobId = BlobId.of(bucketName, "certificados/" + fileName);
