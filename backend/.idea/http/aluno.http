@@ -1,5 +1,34 @@
+### Create User
+POST http://localhost:8083/users/register
+Content-Type: application/json
+
+{
+  "login": "newuser",
+  "password": "password123",
+  "email": "newuser@example.com"
+}
+
+### Login User and Get Token
+POST http://localhost:8083/users/login
+Content-Type: application/json
+
+{
+  "login": "newuser",
+  "password": "password123"
+}
+
+
+> {%
+    let token = response.body;
+    client.log(token);
+    client.global.set("authToken", token);
+
+%}
+
+
 ### Create Aluno
 POST http://localhost:8083/alunos
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXd1c2VyIiwiZXhwIjoxNzM4NzI3NTk3fQ.Njl8EGtynwFtYMmTDjs2zd-WfxPokbw-r8-q82GPxnBSp1xSvWOLv8qRQzas2fc5RtABaocP_eKvvNUt1GQx7w
 Content-Type: application/json
 
 {
@@ -27,6 +56,7 @@ Content-Type: application/json
 
 ### Get All Alunos
 GET http://localhost:8083/alunos
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXd1c2VyIiwiZXhwIjoxNzM4ODAxODUwfQ.DkQiS8mnw-DLmUexTq8fULec35-6ozp7z40l7PWuSikmiYIhgbJkXTDrXALDvu5QIihfwLREtI9PNmVuU2WmHQ
 
 ### Get Aluno by ID
 GET http://localhost:8083/alunos/1
