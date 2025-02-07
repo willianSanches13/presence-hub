@@ -15,7 +15,7 @@ import { AlunoCrudComponent } from './views/aluno-crud/aluno-crud.component';
 import { AlunoCreateComponent } from './components/aluno/aluno-create/aluno-create.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -51,6 +51,8 @@ import {ConfirmationDialogComponent} from "./components/workshop/workshop-attend
 import {WorkshopDetailsComponent} from "./components/workshop/workshop-details/workshop-details.component";
 import {AlunoDetailsComponent} from "./components/aluno/aluno-details/aluno-details.component";
 import {HideNavDirective} from "./directives/hidenav.directive";
+import {AuthInterceptor} from "./components/login/auth.interceptor";
+import {UserCreateComponent} from "./components/user/user.create";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -79,6 +81,7 @@ registerLocaleData(localePt);
     AlunoDeleteComponent,
     HoverDirective,
     LoginComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -115,6 +118,11 @@ registerLocaleData(localePt);
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     },
     provideNgxMask(),
   ],

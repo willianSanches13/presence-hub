@@ -1,14 +1,14 @@
 <div class="login">
     <div class="header">Log In</div>
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="fazerLogin()">
         <mat-form-field>
-            <input [(ngModel)]="usuario.nome" [ngModelOptions]="{standalone: true}" matInput type="text" id="username" placeholder="Username">
+            <input matInput formControlName="login" type="text" id="username" placeholder="Username" required>
         </mat-form-field>
         <mat-form-field>
-            <input [(ngModel)]="usuario.senha" [ngModelOptions]="{standalone: true}" matInput type="password" id="password" placeholder="Password">
+            <input matInput formControlName="password" type="password" id="password" placeholder="Password" required>
         </mat-form-field>
         <div class="actions">
-            <button mat-raised-button color="primary" type="submit" (click)="fazerLogin()">LOG IN</button>
+            <button mat-raised-button color="primary" type="submit">LOG IN</button>
         </div>
     </form>
 </div>
