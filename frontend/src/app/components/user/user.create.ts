@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {UserForm} from "./user.form";
 import {UserService} from "./user.service";
 import {User} from "./user.model";
+import {HeaderService} from "../template/header/header.service";
 
 @Component({
   selector: 'app-user-create',
@@ -14,7 +15,7 @@ export class UserCreateComponent implements OnInit {
 
   userForm: FormGroup<UserForm>;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private headerService: HeaderService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.userForm = this.fb.group<UserForm>({
@@ -26,6 +27,12 @@ export class UserCreateComponent implements OnInit {
       confirmPassword: this.fb.control('', Validators.required),
       email: this.fb.control('', [Validators.required, Validators.email]),
     }, { validators: this.passwordMatchValidator });
+
+    this.headerService.headerData = {
+      title: 'Cadastro de Usuário',
+      icon: 'person_add',
+      routeUrl: this.route.snapshot.url.join('/login')
+    };
   }
 
   passwordMatchValidator(form: FormGroup): { [s: string]: boolean } | null {
@@ -48,6 +55,6 @@ export class UserCreateComponent implements OnInit {
 
 
   cancel(): void {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/login']);
   }
 }

@@ -8,7 +8,10 @@
             <input matInput formControlName="password" type="password" id="password" placeholder="Password" required>
         </mat-form-field>
         <div class="actions">
-            <button mat-raised-button color="primary" type="submit">LOG IN</button>
+            <button id="login" mat-raised-button class="login-button" color="primary" type="submit">LOG IN</button>
         </div>
     </form>
+    <div class="actions">
+        <button id="cadastrar" mat-raised-button class="register-button" color="primary" type="button" (click)="cadastrar()">CADASTRAR</button>
+    </div>
 </div>

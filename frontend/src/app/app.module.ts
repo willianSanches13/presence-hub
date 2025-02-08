@@ -53,6 +53,7 @@ import {AlunoDetailsComponent} from "./components/aluno/aluno-details/aluno-deta
 import {HideNavDirective} from "./directives/hidenav.directive";
 import {AuthInterceptor} from "./components/login/auth.interceptor";
 import {UserCreateComponent} from "./components/user/user.create";
+import {HideNavbarDirective} from "./directives/hide-navbar.directive";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -81,7 +82,8 @@ registerLocaleData(localePt);
     AlunoDeleteComponent,
     HoverDirective,
     LoginComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    HideNavbarDirective
   ],
   imports: [
     BrowserModule,

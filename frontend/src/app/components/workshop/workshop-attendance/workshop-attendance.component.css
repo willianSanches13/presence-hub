@@ -9,7 +9,7 @@ mat-card {
 
 mat-radio-button {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .mat-card-content {
