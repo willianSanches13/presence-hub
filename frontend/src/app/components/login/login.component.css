@@ -27,4 +27,14 @@ mat-form-field {
     width: 100%;
     display: flex;
     justify-content: center;
+    gap: 10px;
+}
+
+#cadastrar{
+    background-color: #ffbe00 !important;
+    margin-top: 30px;
+}
+
+#login{
+    background-color: #ffbe00 !important;
 }

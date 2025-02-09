@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Usuario } from './usuario';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AlunoForm} from "../aluno/aluno.form";
+import {LoginForm} from "./login.form";
+import {ActivatedRoute, Router} from "@angular/router";
+import {HeaderService} from "../template/header/header.service";
 
 @Component({
   selector: 'app-login',
@@ -9,16 +14,31 @@ import { Usuario } from './usuario';
 })
 export class LoginComponent implements OnInit {
 
-  public usuario: Usuario = new Usuario;
+  loginForm: FormGroup<LoginForm>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private headerService: HeaderService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.loginForm = this.fb.group<LoginForm>({
+      login: this.fb.control('', Validators.required),
+      password: this.fb.control('', [Validators.required])
+    });
+    this.headerService.headerData = {
+      title: 'Login',
+      icon: 'login',
+      routeUrl: this.route.snapshot.url.join('/login')
+    };
   }
 
+
   fazerLogin(){
-    //console.log(this.usuario.nome);
-    this.authService.fazerLogin(this.usuario);
+    const usuario: Usuario = this.loginForm.getRawValue();
+    this.authService.fazerLogin(usuario);
+  }
+
+
+  cadastrar(){
+    this.router.navigate(['/users']);
   }
 
 }

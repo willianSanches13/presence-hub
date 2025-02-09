@@ -14,71 +14,75 @@ import {WorkshopDeleteComponent} from './components/workshop/workshop-delete/wor
 import {WorkshopAttendanceComponent} from "./components/workshop/workshop-attendance/workshop-attendance.component";
 import {WorkshopDetailsComponent} from "./components/workshop/workshop-details/workshop-details.component";
 import {AlunoDetailsComponent} from "./components/aluno/aluno-details/aluno-details.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {UserCreateComponent} from "./components/user/user.create";
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: "",
     component: HomeComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "alunos",
     component: AlunoCrudComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "alunos/details/:id",
     component: AlunoDetailsComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "alunos/create",
     component: AlunoCreateComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "alunos/update/:id",
     component: AlunoUpdateComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "alunos/delete/:id",
     component: AlunoDeleteComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "workshops",
     component: WorkshopCrudComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
+  },
+
+  {
+    path: "users",
+    component: UserCreateComponent,
   },
   {
     path: "workshops/create",
     component: WorkshopCreateComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "workshops/update/:id",
     component: WorkshopUpdateComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
 
   {
     path: "workshops/details/:id",
     component: WorkshopDetailsComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: "workshops/delete/:id",
     component: WorkshopDeleteComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: 'workshops/presenca/:id',
     component: WorkshopAttendanceComponent },
-  {
-    path: "login",
-    component: LoginComponent
-  }
 ];
 
 @NgModule({
