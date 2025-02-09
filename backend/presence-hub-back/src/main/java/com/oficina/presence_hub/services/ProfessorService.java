@@ -23,11 +23,6 @@ public class ProfessorService {
         return professorRepository.save(professor);
     }
 
-    public List<ProfessorDTO> getAllProfessors() {
-        List<Professor> professors = professorRepository.findAll();
-        return professorMapper.toProfessorDTO(professors);
-    }
-
     public Professor getProfessorById(Long id) {
         return professorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professor not found"));
@@ -37,11 +32,5 @@ public class ProfessorService {
         Professor professor = getProfessorById(id);
         professorMapper.updateProfessorFromDTO(professorDTO, professor);
         return professorRepository.save(professor);
-    }
-
-    public void deleteProfessor(Long id) {
-        Professor professor = professorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Professor not found"));
-        professorRepository.delete(professor);
     }
 }

@@ -1,15 +1,21 @@
 package com.oficina.presence_hub.services;
 
+import com.oficina.presence_hub.controllers.resources.CreateCertificadosResource;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
+import com.oficina.presence_hub.entities.Participacao;
 import com.oficina.presence_hub.entities.Professor;
 import com.oficina.presence_hub.entities.Workshop;
 import com.oficina.presence_hub.mappers.ParticipacaoMapper;
 import com.oficina.presence_hub.mappers.WorkshopMapper;
 import com.oficina.presence_hub.repositories.WorkshopRepository;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
@@ -30,6 +36,12 @@ public class WorkshopService {
 
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    ParticipacaoService participacaoService;
+
+    @Autowired
+    CertificadoService certificadoService;
 
     public WorkshopDTO createWorkshop(WorkshopDTO workshopDto) {
         log.info("Creating Workshop: {}", workshopDto);
@@ -80,5 +92,39 @@ public class WorkshopService {
         Workshop workshop = workshopRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Workshop not found"));
         workshopRepository.delete(workshop);
         log.info("Workshop deleted successfully");
+    }
+
+    public void updateParticipacoes(Long workShopId, Long alunoId, boolean presenca) {
+        log.info("Updating participacoes for alunoId: {} and workShopId: {}", alunoId, workShopId);
+
+        Workshop workshop = workshopRepository.findById(workShopId)
+                .orElseThrow(() -> {
+                    log.error("Workshop not found with id: {}", workShopId);
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "Workshop not found");
+                });
+
+        Optional<Participacao> participacaoOpt = workshop.getParticipacoes().stream()
+                .filter(participacao -> participacao.getAluno().getId().equals(alunoId))
+                .findFirst();
+
+        if (participacaoOpt.isPresent()) {
+            log.info("Participacao found for alunoId: {} in workshopId: {}", alunoId, workShopId);
+            participacaoService.updateParticipacao(participacaoOpt.get().getId(), presenca);
+        } else {
+            log.info("Participacao not found for alunoId: {} in workshopId: {}, creating new participacao", alunoId, workShopId);
+            participacaoService.createParticipacao(alunoId, workShopId, presenca);
+        }
+
+        log.info("Participacoes updated successfully for alunoId: {} and workShopId: {}", alunoId, workShopId);
+    }
+
+
+   @Async
+    public void createCertificados(Long workshopId, CreateCertificadosResource createCertificadosResource) {
+       Workshop workshop = workshopRepository.findById(workshopId)
+               .orElseThrow(() -> new IllegalArgumentException("Workshop não encontrado"));
+       workshop.setCertificadosGerados(true);
+       workshopRepository.save(workshop);
+       createCertificadosResource.alunosIds().forEach(e -> certificadoService.createCertificado(workshop, e));
     }
 }

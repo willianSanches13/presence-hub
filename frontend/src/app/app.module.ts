@@ -42,33 +42,47 @@ import {WorkshopCreateComponent} from "./components/workshop/workshop-create/wor
 import {WorkshopReadComponent} from "./components/workshop/workshop-read/workshop-read.component";
 import {WorkshopUpdateComponent} from "./components/workshop/workshop-update/workshop-update.component";
 import {WorkshopDeleteComponent} from "./components/workshop/workshop-delete/workshop-delete.component";
+import {WorkshopAttendanceComponent} from "./components/workshop/workshop-attendance/workshop-attendance.component";
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {MatDialogModule} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "./components/workshop/workshop-attendance/confirmation-dialog.component";
+import {WorkshopDetailsComponent} from "./components/workshop/workshop-details/workshop-details.component";
+import {AlunoDetailsComponent} from "./components/aluno/aluno-details/aluno-details.component";
+import {HideNavDirective} from "./directives/hidenav.directive";
 
 registerLocaleData(localePt);
-
 @NgModule({
   declarations: [
     HeaderComponent,
+    HideNavDirective,
     FooterComponent,
     NavComponent,
     AppComponent,
     HomeComponent,
     AlunoCrudComponent,
     AlunoCreateComponent,
+    WorkshopAttendanceComponent,
     AlunoReadComponent,
     WorkshopCrudComponent,
     WorkshopCreateComponent,
+    ConfirmationDialogComponent,
     WorkshopReadComponent,
     WorkshopUpdateComponent,
     WorkshopDeleteComponent,
     RedDirective,
+    WorkshopDetailsComponent,
+    AlunoDetailsComponent,
     ForDirective,
     AlunoUpdateComponent,
     AlunoDeleteComponent,
     HoverDirective,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
+    MatDialogModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -91,14 +105,18 @@ registerLocaleData(localePt);
     NgxMaskDirective,
     NgxMaskPipe,
     MatSelect,
-    MatOption
+    MatOption,
+    MatRadioGroup,
+    MatRadioButton,
+    MatCheckbox,
+    MatSlideToggle
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'
     },
-    provideNgxMask()
+    provideNgxMask(),
   ],
   bootstrap: [AppComponent]
 })

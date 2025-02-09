@@ -13,6 +13,15 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="time" placeholder="Hora Início" formControlName="horaInicio">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="time" placeholder="Hora Fim" formControlName="horaFim">
+            </mat-form-field>
+
             <div class="professor-container" formGroupName="professor">
                 <mat-form-field>
                     <input matInput placeholder="Nome do Professor" formControlName="nome">

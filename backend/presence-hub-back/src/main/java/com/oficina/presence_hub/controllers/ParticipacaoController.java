@@ -16,12 +16,6 @@ public class ParticipacaoController {
     @Autowired
     private ParticipacaoService participacaoService;
 
-    @PostMapping
-    public ResponseEntity<ParticipacaoDTO> createParticipacao(@RequestBody ParticipacaoDTO participacaoDto) {
-        ParticipacaoDTO createdParticipacao = participacaoService.createParticipacao(participacaoDto);
-        return ResponseEntity.ok(createdParticipacao);
-    }
-
     @GetMapping
     public ResponseEntity<List<ParticipacaoDTO>> getAllParticipacoes() {
         List<ParticipacaoDTO> participacoes = participacaoService.getAllParticipacoes();
@@ -34,15 +28,4 @@ public class ParticipacaoController {
         return ResponseEntity.ok(participacao);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ParticipacaoDTO> updateParticipacao(@PathVariable Long id) {
-        ParticipacaoDTO updatedParticipacao = participacaoService.updateParticipacao(id);
-        return ResponseEntity.ok(updatedParticipacao);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteParticipacao(@PathVariable Long id) {
-        participacaoService.deleteParticipacao(id);
-        return ResponseEntity.noContent().build();
-    }
 }

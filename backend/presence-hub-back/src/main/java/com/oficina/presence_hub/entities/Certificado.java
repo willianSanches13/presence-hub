@@ -25,6 +25,6 @@ public class Certificado {
     private Aluno aluno;
     @ManyToOne
     private Workshop workshop;
-    private String assinaturaDigital; // Hash ou assinatura de verificação
     private LocalDate dataEmissao;
+    private String path;
 }

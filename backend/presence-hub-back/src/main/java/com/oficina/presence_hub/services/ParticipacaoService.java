@@ -30,12 +30,13 @@ public class ParticipacaoService {
     @Autowired
     WorkshopRepository workshopRepository;
 
-    public ParticipacaoDTO createParticipacao(ParticipacaoDTO participacaoDto) {
-        Participacao participacao = participacaoMapper.toParticipacao(participacaoDto);
+    public void createParticipacao(Long alunoId, Long workshopId,  boolean presenca) {
+        Participacao participacao = new Participacao();
+        participacao.setPresente(presenca);
         Participacao participacaoOrm = participacaoRepository.save(participacao);
-        participacaoOrm.setAluno(findAluno(participacaoDto.aluno().id()));
-        participacaoOrm.setWorkshop(findWorkshop(participacaoDto.workshop().id()));
-        return participacaoMapper.toParticipacaoDTO(participacaoOrm);
+        participacaoOrm.setAluno(findAluno(alunoId));
+        participacaoOrm.setWorkshop(findWorkshop(workshopId));
+        participacaoRepository.save(participacaoOrm);
     }
 
     public List<ParticipacaoDTO> getAllParticipacoes() {
@@ -47,15 +48,10 @@ public class ParticipacaoService {
         return participacaoMapper.toParticipacaoDTO(participacao);
     }
 
-    public ParticipacaoDTO updateParticipacao(Long id) {
+    public void updateParticipacao(Long id, boolean presenca) {
         Participacao participacao = participacaoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participacao not found"));
-        participacao.setPresente(!participacao.isPresente());
-        return participacaoMapper.toParticipacaoDTO(participacaoRepository.save(participacao));
-    }
-
-    public void deleteParticipacao(Long id) {
-        Participacao participacao = participacaoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participacao not found"));
-        participacaoRepository.delete(participacao);
+        participacao.setPresente(presenca);
+        participacaoRepository.save(participacao);
     }
 
     private Aluno findAluno(Long id) {

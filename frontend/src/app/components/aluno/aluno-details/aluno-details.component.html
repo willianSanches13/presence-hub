@@ -1,0 +1,80 @@
+<mat-card>
+    <mat-card-title class="center-title">Detalhes do Aluno</mat-card-title>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>
+                <strong>Nome:</strong> {{ alunoForm.get('nome')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Série:</strong> {{ SerieEnum[alunoForm.get('serie')?.value] }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Telefone de Contato:</strong> {{ alunoForm.get('telefoneContato')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Email:</strong> {{ alunoForm.get('email')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Data de Nascimento:</strong> {{ alunoForm.get('dataNascimento')?.value | date }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Instituição de Ensino:</strong> {{ alunoForm.get('instituicaoDeEnsino')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Nome do Responsável:</strong> {{ alunoForm.get('nomeResponsavel')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Telefone do Responsável:</strong> {{ alunoForm.get('telefoneResponsavel')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Matrícula no Projeto:</strong> {{ alunoForm.get('matriculaProjeto')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Data de Inscrição:</strong> {{ alunoForm.get('dataInscricao')?.value | date }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Observações:</strong> {{ alunoForm.get('observacoes')?.value }}
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <h3>Endereço</h3>
+            <mat-list-item>
+                <strong>CEP:</strong> {{ alunoForm.get('endereco.cep')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Logradouro:</strong> {{ alunoForm.get('endereco.logradouro')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Bairro:</strong> {{ alunoForm.get('endereco.bairro')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Cidade:</strong> {{ alunoForm.get('endereco.cidade')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>UF:</strong> {{ alunoForm.get('endereco.uf')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Número:</strong> {{ alunoForm.get('endereco.numero')?.value }}
+            </mat-list-item>
+            <mat-list-item>
+                <strong>Complemento:</strong> {{ alunoForm.get('endereco.complemento')?.value }}
+            </mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <h3>Certificados</h3>
+        <mat-list *ngFor="let certificado of certificados">
+            <mat-list-item>
+                <strong>Id:</strong> {{ certificado.id }} |
+                <strong>Data:</strong> {{ certificado.dataEmissao | date }} |
+                <strong>Workshop:</strong> {{ certificado.workshopName }} |
+                <a [href]="certificado.path" target="_blank">
+                    <i class="material-icons">
+                        cloud_download
+                    </i>
+                </a>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+    <button mat-raised-button class="cancel-button" type="button" (click)="cancel()">
+        Voltar
+    </button>
+</mat-card>

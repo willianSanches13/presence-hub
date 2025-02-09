@@ -5,10 +5,12 @@ import com.oficina.presence_hub.dtos.CertificadoDTO;
 import com.oficina.presence_hub.dtos.ParticipacaoDTO;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import com.oficina.presence_hub.entities.Aluno;
+import com.oficina.presence_hub.entities.Endereco;
+import com.oficina.presence_hub.enums.UfEnum;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
+
+import com.oficina.presence_hub.enums.SerieEnum;
 
 public class TestUtils {
 
@@ -78,8 +80,6 @@ public class TestUtils {
         return CertificadoDTO.builder()
                 .assinaturaDigital("new-digital-signature")
                 .dataEmissao(LocalDate.now())
-                .aluno(AlunoDTO.builder().id(998L).build())
-                .workshop(WorkshopDTO.builder().id(997L).build())
                 .build();
     }
 
@@ -109,4 +109,5 @@ public class TestUtils {
                 .certificados(Collections.emptyList())
                 .build();
     }
+
 }

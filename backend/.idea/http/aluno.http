@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "nome": "João Silva",
-  "email": "joao.silva@example.com",
+  "email": "william@mailinator.com",
   "dataNascimento": "2000-01-01",
   "serie": "SEXTO_ANO_FUNDAMENTAL",
   "endereco": {
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 {
   "nome": "João Rocha",
-  "email": "joao.silva@example.com",
+  "email": "william@mailinator",
   "dataNascimento": "2000-01-01",
   "serie": "SEXTO_ANO_FUNDAMENTAL",
   "endereco": {

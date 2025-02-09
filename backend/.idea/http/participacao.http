@@ -1,12 +1,7 @@
 ### Create Participacao
-POST http://localhost:8083/participacoes
+PUT http://localhost:8083/workshops/1/participacoes/alunos/1?presenca=true
 Content-Type: application/json
 
-{
-  "aluno": {"id": 1},
-  "workshop": {"id": 1},
-  "presente": true
-}
 
 ### Get All Participacoes
 GET http://localhost:8083/participacoes

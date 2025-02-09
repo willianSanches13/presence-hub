@@ -1,5 +1,8 @@
 package com.oficina.presence_hub.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum SerieEnum {
     PRIMEIRO_ANO_FUNDAMENTAL("1º Ano do Ensino Fundamental"),
     SEGUNDO_ANO_FUNDAMENTAL("2º Ano do Ensino Fundamental"),
@@ -20,7 +23,4 @@ public enum SerieEnum {
         this.descricao = descricao;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
 }
