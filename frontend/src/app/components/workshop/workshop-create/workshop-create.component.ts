@@ -3,6 +3,7 @@ import { WorkshopService } from '../workshop.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {timeRangeValidator} from "../time.validator";
 
 @Component({
   selector: 'app-workshop-create',
@@ -19,7 +20,7 @@ export class WorkshopCreateComponent implements OnInit {
     this.workshopForm = this.fb.group({
       titulo: ['', Validators.required],
       descricao: ['', Validators.required],
-      data: [null, Validators.required],
+      data: ['', Validators.required],
       horaInicio: ['', Validators.required],
       horaFim: ['', Validators.required],
       professor: this.fb.group({
@@ -29,7 +30,7 @@ export class WorkshopCreateComponent implements OnInit {
         especializacao: ['', Validators.required],
         instituicaoVinculo: ['', Validators.required]
       })
-    });
+    }, { validators: timeRangeValidator('horaInicio', 'horaFim') });
   }
 
   createWorkshop(): void {

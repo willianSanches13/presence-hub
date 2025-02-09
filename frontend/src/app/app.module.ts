@@ -54,6 +54,7 @@ import {HideNavDirective} from "./directives/hidenav.directive";
 import {AuthInterceptor} from "./components/login/auth.interceptor";
 import {UserCreateComponent} from "./components/user/user.create";
 import {HideNavbarDirective} from "./directives/hide-navbar.directive";
+import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -86,6 +87,7 @@ registerLocaleData(localePt);
     HideNavbarDirective
   ],
   imports: [
+    NgxMaterialTimepickerModule,
     BrowserModule,
     MatDialogModule,
     AppRoutingModule,

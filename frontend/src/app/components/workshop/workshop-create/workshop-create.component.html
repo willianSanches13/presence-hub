@@ -4,39 +4,50 @@
         <div class="form-container">
             <mat-form-field>
                 <input matInput placeholder="Título" formControlName="titulo">
+                <mat-error *ngIf="workshopForm.get('titulo')?.hasError('required')">Título é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <textarea matInput placeholder="Descrição" formControlName="descricao"></textarea>
+                <mat-error *ngIf="workshopForm.get('descricao')?.hasError('required')">Descrição é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [matDatepicker]="picker" placeholder="Data" formControlName="data">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="workshopForm.get('data')?.hasError('required')">Data é obrigatória</mat-error>
             </mat-form-field>
-
             <mat-form-field>
-                <input matInput type="time" placeholder="Hora Início" formControlName="horaInicio">
+                <input matInput [ngxTimepicker]="startTimePicker" placeholder="Hora Início" formControlName="horaInicio">
+                <ngx-material-timepicker #startTimePicker></ngx-material-timepicker>
+                <mat-error *ngIf="workshopForm.get('horaInicio')?.hasError('required')">Hora Início é obrigatória</mat-error>
             </mat-form-field>
-
             <mat-form-field>
-                <input matInput type="time" placeholder="Hora Fim" formControlName="horaFim">
+                <input matInput [ngxTimepicker]="endTimePicker" placeholder="Hora Fim" formControlName="horaFim">
+                <ngx-material-timepicker #endTimePicker></ngx-material-timepicker>
+                <mat-error *ngIf="workshopForm.get('horaFim')?.hasError('required')">Hora Fim é obrigatória</mat-error>
             </mat-form-field>
-
+            <mat-error *ngIf="workshopForm.hasError('timeRangeInvalid')">Hora Fim não pode ser antes da Hora Início</mat-error>
             <div class="professor-container" formGroupName="professor">
                 <mat-form-field>
                     <input matInput placeholder="Nome do Professor" formControlName="nome">
+                    <mat-error *ngIf="workshopForm.get('professor.nome')?.hasError('required')">Nome do Professor é obrigatório</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput placeholder="Email do Professor" formControlName="email">
+                    <mat-error *ngIf="workshopForm.get('professor.email')?.hasError('required')">Email do Professor é obrigatório</mat-error>
+                    <mat-error *ngIf="workshopForm.get('professor.email')?.hasError('email')">Email inválido</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput placeholder="Telefone de Contato do Professor" formControlName="telefoneContato" mask="(00) 00000-0000">
+                    <mat-error *ngIf="workshopForm.get('professor.telefoneContato')?.hasError('required')">Telefone de Contato do Professor é obrigatório</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput placeholder="Especialização do Professor" formControlName="especializacao">
+                    <mat-error *ngIf="workshopForm.get('professor.especializacao')?.hasError('required')">Especialização do Professor é obrigatória</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput placeholder="Instituição de Vínculo do Professor" formControlName="instituicaoVinculo">
+                    <mat-error *ngIf="workshopForm.get('professor.instituicaoVinculo')?.hasError('required')">Instituição de Vínculo do Professor é obrigatória</mat-error>
                 </mat-form-field>
             </div>
         </div>

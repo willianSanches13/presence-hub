@@ -4,40 +4,50 @@
         <div class="form-container">
             <mat-form-field>
                 <input matInput placeholder="Nome" formControlName="nome">
+                <mat-error *ngIf="alunoForm.get('nome')?.hasError('required')">Nome é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Série" formControlName="serie">
                     <mat-option *ngFor="let serie of series" [value]="serie">{{ SerieEnum[serie] }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="alunoForm.get('serie')?.hasError('required')">Série é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Telefone de Contato" formControlName="telefoneContato" mask="(00) 00000-0000">
+                <mat-error *ngIf="alunoForm.get('telefoneContato')?.hasError('required')">Telefone de Contato é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="alunoForm.get('email')?.hasError('required')">Email é obrigatório</mat-error>
+                <mat-error *ngIf="alunoForm.get('email')?.hasError('email')">Email inválido</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" formControlName="dataNascimento">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="alunoForm.get('dataNascimento')?.hasError('required')">Data de Nascimento é obrigatória</mat-error>
             </mat-form-field>
-
             <mat-form-field>
                 <input matInput placeholder="Instituição de Ensino" formControlName="instituicaoDeEnsino">
+                <mat-error *ngIf="alunoForm.get('instituicaoDeEnsino')?.hasError('required')">Instituição de Ensino é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Nome do Responsável" formControlName="nomeResponsavel">
+                <mat-error *ngIf="alunoForm.get('nomeResponsavel')?.hasError('required')">Nome do Responsável é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Telefone do Responsável" formControlName="telefoneResponsavel" mask="(00) 00000-0000">
+                <mat-error *ngIf="alunoForm.get('telefoneResponsavel')?.hasError('required')">Telefone do Responsável é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Matrícula no Projeto" formControlName="matriculaProjeto">
+                <mat-error *ngIf="alunoForm.get('matriculaProjeto')?.hasError('required')">Matrícula no Projeto é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [matDatepicker]="picker2" placeholder="Data de Inscrição" formControlName="dataInscricao">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="alunoForm.get('dataInscricao')?.hasError('required')">Data de Inscrição é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <textarea matInput placeholder="Observações" formControlName="observacoes"></textarea>
@@ -46,31 +56,37 @@
                 <div>
                     <mat-form-field>
                         <input matInput placeholder="CEP" formControlName="cep" mask="00000-000" (blur)="buscarEndereco()">
+                        <mat-error *ngIf="alunoForm.get('endereco.cep')?.hasError('required')">CEP é obrigatório</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field>
                         <input matInput placeholder="Logradouro" formControlName="logradouro">
+                        <mat-error *ngIf="alunoForm.get('endereco.logradouro')?.hasError('required')">Logradouro é obrigatório</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field>
                         <input matInput placeholder="Bairro" formControlName="bairro">
+                        <mat-error *ngIf="alunoForm.get('endereco.bairro')?.hasError('required')">Bairro é obrigatório</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field>
                         <input matInput placeholder="Cidade" formControlName="cidade">
+                        <mat-error *ngIf="alunoForm.get('endereco.cidade')?.hasError('required')">Cidade é obrigatória</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field>
                         <input matInput placeholder="UF" formControlName="uf">
+                        <mat-error *ngIf="alunoForm.get('endereco.uf')?.hasError('required')">UF é obrigatório</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field>
                         <input matInput placeholder="Número" formControlName="numero" type="number">
+                        <mat-error *ngIf="alunoForm.get('endereco.numero')?.hasError('required')">Número é obrigatório</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
