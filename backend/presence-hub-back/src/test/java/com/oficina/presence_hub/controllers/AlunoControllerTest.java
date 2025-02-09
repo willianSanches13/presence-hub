@@ -92,4 +92,63 @@ public class AlunoControllerTest {
                 .then()
                 .statusCode(HttpStatus.NO_CONTENT.value());
     }
+
+    @Test
+    void createAlunoWithExtraParametersTest() {
+        String extraParamJson = """
+        {
+            "nome": "John Doe",
+            "email": "john.doe@example.com",
+            "extraParam": "unexpected"
+        }
+    """;
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(extraParamJson)
+                .when()
+                .post("/alunos")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    void createAlunoWithInvalidEmailTest() {
+        AlunoDTO alunoDto = TestUtils.buildAlunoDTOwithoutId();
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(alunoDto)
+                .when()
+                .post("/alunos")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body("errors.email", containsString("must be a well-formed email address"));
+    }
+
+    @Test
+    void updateAlunoWithNonExistentIdTest() {
+        Long nonExistentId = 9999L;
+        AlunoDTO alunoDto = TestUtils.buildAlunoDTOwithId(nonExistentId);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(alunoDto)
+                .when()
+                .put("/alunos/{id}", nonExistentId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+
+    @Test
+    void deleteAlunoWithNonExistentIdTest() {
+        Long nonExistentId = 9999L;
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("/alunos/{id}", nonExistentId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
 }

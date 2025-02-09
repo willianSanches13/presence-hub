@@ -1,23 +1,23 @@
 package com.oficina.presence_hub.controllers;
 
-import com.oficina.presence_hub.dtos.CertificadoDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.specification.MultiPartSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
-import utils.TestUtils;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class CertificadoControllerTest {
-
 
     @LocalServerPort
     private int port;
@@ -28,69 +28,48 @@ public class CertificadoControllerTest {
     }
 
     @Test
-    void createCertificadoTest() {
-        CertificadoDTO certificadoDto = TestUtils.buildCertificadoDTOwithoutId();
-
+    void showUploadPageTest() {
         given()
-                .contentType(ContentType.JSON)
-                .body(certificadoDto)
                 .when()
-                .post("/certificados")
+                .get("/certificados/upload")
                 .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("aluno.nome", equalTo("Jane Doe"))
-                .body("workshop.titulo", equalTo("Workshop 1"))
-                .body("assinaturaDigital", equalTo("new-digital-signature"));
+                .statusCode(HttpStatus.OK.value());
     }
 
     @Test
-    void getAllCertificadosTest() {
+    void validatePdfTest() {
+        MockMultipartFile file = new MockMultipartFile("file", "test.pdf", "application/pdf", "test content".getBytes());
+
         given()
-                .contentType(ContentType.JSON)
+                .multiPart((MultiPartSpecification) file)
                 .when()
-                .get("/certificados")
+                .post("/certificados/validate")
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body("$", not(empty()));
+                .body("isValid", equalTo(true)); // Adjust based on expected behavior
     }
 
     @Test
-    void getCertificadoByIdTest() {
-        Long certificadoId = 992L; // Adjust this ID based on your test data
-
+    void validatePdfWithMissingFileTest() {
         given()
-                .contentType(ContentType.JSON)
+                .contentType(ContentType.MULTIPART)
                 .when()
-                .get("/certificados/{id}", certificadoId)
+                .post("/certificados/validate")
                 .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("id", equalTo(certificadoId.intValue()));
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body("error", containsString("Failed to read the file"));
     }
 
     @Test
-    void updateCertificadoTest() {
-        Long certificadoId = 992L;
-        CertificadoDTO certificadoDto = TestUtils.buildCertificadoDTO();
+    void validatePdfWithInvalidFileTest() {
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "invalid content".getBytes());
 
         given()
-                .contentType(ContentType.JSON)
-                .body(certificadoDto)
+                .multiPart((MultiPartSpecification) file)
                 .when()
-                .put("/certificados/{id}", certificadoId)
+                .post("/certificados/validate")
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body("assinaturaDigital", equalTo("new-digital-signature"));
-    }
-
-    @Test
-    void deleteCertificadoTest() {
-        Long certificadoId = 991L; // Adjust this ID based on your test data
-
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .delete("/certificados/{id}", certificadoId)
-                .then()
-                .statusCode(HttpStatus.NO_CONTENT.value());
+                .body("isValid", equalTo(false)); // Adjust based on expected behavior
     }
 }

@@ -71,14 +71,12 @@ public class TestUtils {
     public static CertificadoDTO buildCertificadoDTO() {
         return CertificadoDTO.builder()
                 .id(1L)
-                .assinaturaDigital("new-digital-signature")
                 .dataEmissao(LocalDate.now())
                 .build();
     }
 
     public static CertificadoDTO buildCertificadoDTOwithoutId() {
         return CertificadoDTO.builder()
-                .assinaturaDigital("new-digital-signature")
                 .dataEmissao(LocalDate.now())
                 .build();
     }

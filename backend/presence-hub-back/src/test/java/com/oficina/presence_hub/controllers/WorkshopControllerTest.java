@@ -1,5 +1,6 @@
 package com.oficina.presence_hub.controllers;
 
+import com.oficina.presence_hub.controllers.resources.CreateCertificadosResource;
 import com.oficina.presence_hub.dtos.WorkshopDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import utils.TestUtils;
 
 import static io.restassured.RestAssured.given;
@@ -44,6 +44,19 @@ public class WorkshopControllerTest {
     }
 
     @Test
+    void createWorkshopWithInvalidDataTest() {
+        WorkshopDTO workshop = WorkshopDTO.builder().build();
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(workshop)
+                .when()
+                .post("/workshops")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
     void getAllWorkshopsTest() {
         given()
                 .contentType(ContentType.JSON)
@@ -68,6 +81,18 @@ public class WorkshopControllerTest {
     }
 
     @Test
+    void getWorkshopByNonExistentIdTest() {
+        Long nonExistentId = 9999L;
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/workshops/{id}", nonExistentId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+
+    @Test
     void updateWorkshopTest() {
         Long workshopId = 996L;
         WorkshopDTO workshop = TestUtils.buildWorkshopDTOWithoutParticipacoes();
@@ -87,6 +112,20 @@ public class WorkshopControllerTest {
     }
 
     @Test
+    void updateWorkshopWithInvalidDataTest() {
+        Long workshopId = 996L;
+        WorkshopDTO workshop = WorkshopDTO.builder().build();
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(workshop)
+                .when()
+                .put("/workshops/{id}", workshopId)
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
     void deleteWorkshopTest() {
         Long workshopId = 995L;
 
@@ -96,5 +135,75 @@ public class WorkshopControllerTest {
                 .delete("/workshops/{id}", workshopId)
                 .then()
                 .statusCode(HttpStatus.NO_CONTENT.value());
+    }
+
+    @Test
+    void deleteWorkshopWithNonExistentIdTest() {
+        Long nonExistentId = 9999L;
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("/workshops/{id}", nonExistentId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+    @Test
+    void createCertificadosTest() {
+        Long workshopId = 1L;
+        CreateCertificadosResource resource = CreateCertificadosResource.builder().build();
+        // Populate resource with necessary data
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(resource)
+                .when()
+                .post("/workshops/{workShopId}/certificados/alunos", workshopId)
+                .then()
+                .statusCode(HttpStatus.ACCEPTED.value());
+    }
+
+    @Test
+    void createCertificadosWithInvalidDataTest() {
+        Long workshopId = 1L;
+        CreateCertificadosResource resource = CreateCertificadosResource.builder().build();
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(resource)
+                .when()
+                .post("/workshops/{workShopId}/certificados/alunos", workshopId)
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    void updateParticipacoesTest() {
+        Long workShopId = 1L;
+        Long alunoId = 1L;
+        boolean presenca = true;
+
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("presenca", presenca)
+                .when()
+                .put("/workshops/{workShopId}/participacoes/alunos/{alunoId}", workShopId, alunoId)
+                .then()
+                .statusCode(HttpStatus.NO_CONTENT.value());
+    }
+
+    @Test
+    void updateParticipacoesWithInvalidIdsTest() {
+        Long invalidWorkShopId = 9999L;
+        Long invalidAlunoId = 9999L;
+        boolean presenca = true;
+
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("presenca", presenca)
+                .when()
+                .put("/workshops/{workShopId}/participacoes/alunos/{alunoId}", invalidWorkShopId, invalidAlunoId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 }
