@@ -47,9 +47,11 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/alunos/**").authenticated()
                         .requestMatchers("/workshops/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                        .requestMatchers("/certificados/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
