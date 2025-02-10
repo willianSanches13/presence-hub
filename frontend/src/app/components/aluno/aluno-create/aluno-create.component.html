@@ -22,7 +22,7 @@
                 <mat-error *ngIf="alunoForm.get('email')?.hasError('email')">Email inválido</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" formControlName="dataNascimento">
+                <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" formControlName="dataNascimento" (focus)="picker.open()">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="alunoForm.get('dataNascimento')?.hasError('required')">Data de Nascimento é obrigatória</mat-error>
@@ -44,7 +44,7 @@
                 <mat-error *ngIf="alunoForm.get('matriculaProjeto')?.hasError('required')">Matrícula no Projeto é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="picker2" placeholder="Data de Inscrição" formControlName="dataInscricao">
+                <input matInput [matDatepicker]="picker2" placeholder="Data de Inscrição" formControlName="dataInscricao" (focus)="picker2.open()">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-error *ngIf="alunoForm.get('dataInscricao')?.hasError('required')">Data de Inscrição é obrigatória</mat-error>

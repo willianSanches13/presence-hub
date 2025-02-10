@@ -37,6 +37,7 @@ export class WorkshopUpdateComponent implements OnInit {
     if (id) {
       this.workshopService.readById(+id).subscribe(workshop => {
         this.workshopForm.patchValue(workshop);
+        this.workshopForm.addControl('id', this.fb.control(+id));
       });
     }
   }

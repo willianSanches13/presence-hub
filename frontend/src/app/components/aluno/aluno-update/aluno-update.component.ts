@@ -48,6 +48,7 @@ export class AlunoUpdateComponent implements OnInit {
     if (id) {
       this.alunoService.readById(+id).subscribe(aluno => {
         this.alunoForm.patchValue(aluno);
+        this.alunoForm.addControl('id', this.fb.control(+id));
       });
     }
   }

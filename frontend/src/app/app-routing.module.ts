@@ -37,7 +37,7 @@ export const routes: Routes = [
   {
     path: "alunos/create",
     component: AlunoCreateComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "alunos/update/:id",
@@ -47,7 +47,7 @@ export const routes: Routes = [
   {
     path: "alunos/delete/:id",
     component: AlunoDeleteComponent,
-     // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "workshops",
@@ -62,7 +62,7 @@ export const routes: Routes = [
   {
     path: "workshops/create",
     component: WorkshopCreateComponent,
-     // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "workshops/update/:id",

@@ -7,23 +7,19 @@
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Senha" formControlName="password">
-                <mat-error *ngIf="userForm.get('password')?.hasError('required')">Senha é obrigatória</mat-error>
-                <mat-error *ngIf="userForm.get('password')?.hasError('pattern')">A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial</mat-error>
+                <mat-error *ngIf="userForm.get('password').hasError('required')">Senha é obrigatória</mat-error>
+                <mat-error *ngIf="userForm.get('password').hasError('pattern')">A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Confirmar Senha" formControlName="confirmPassword">
-                <mat-error *ngIf="userForm.get('confirmPassword')?.hasError('required')">Confirmação de senha é obrigatória</mat-error>
+                <mat-error *ngIf="userForm.get('confirmPassword').hasError('required')">Confirmação de senha é obrigatória</mat-error>
                 <mat-error *ngIf="userForm.hasError('passwordMismatch')">As senhas não coincidem</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Email" formControlName="email">
             </mat-form-field>
         </div>
-        <button mat-raised-button class="action-button" color="primary" type="submit">
-            Salvar
-        </button>
-        <button mat-raised-button class="cancel-button" type="button" (click)="cancel()">
-            Cancelar
-        </button>
+        <button mat-raised-button class="action-button" color="primary" type="submit">Salvar</button>
+        <button mat-raised-button class="cancel-button" type="button" (click)="cancel()">Cancelar</button>
     </form>
 </mat-card>

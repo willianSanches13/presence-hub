@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import {UserForm} from "./user.form";
-import {UserService} from "./user.service";
-import {User} from "./user.model";
-import {HeaderService} from "../template/header/header.service";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from './user.service';
+import { User } from './user.model';
 
 @Component({
   selector: 'app-user-create',
@@ -12,34 +10,28 @@ import {HeaderService} from "../template/header/header.service";
   styleUrls: ['./user-create.component.css']
 })
 export class UserCreateComponent implements OnInit {
+  userForm: FormGroup;
 
-  userForm: FormGroup<UserForm>;
-
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private headerService: HeaderService, private route: ActivatedRoute) { }
+  constructor(
+      private fb: FormBuilder,
+      private userService: UserService,
+      private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.userForm = this.fb.group<UserForm>({
-      login: this.fb.control('', Validators.required),
-      password: this.fb.control('', [
+    this.userForm = this.fb.group({
+      login: ['', Validators.required],
+      password: ['', [
         Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
-      ]),
-      confirmPassword: this.fb.control('', Validators.required),
-      email: this.fb.control('', [Validators.required, Validators.email]),
-    }, { validators: this.passwordMatchValidator });
-
-    this.headerService.headerData = {
-      title: 'Cadastro de Usuário',
-      icon: 'person_add',
-      routeUrl: this.route.snapshot.url.join('/login')
-    };
+      ]],
+      confirmPassword: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    }, { validator: this.passwordMatchValidator });
   }
 
-  passwordMatchValidator(form: FormGroup): { [s: string]: boolean } | null {
-    if (form.get('password')?.value !== form.get('confirmPassword')?.value) {
-      return { passwordMismatch: true };
-    }
-    return null;
+  passwordMatchValidator(form: FormGroup): { [key: string]: boolean } | null {
+    return form.get('password').value === form.get('confirmPassword').value ? null : { passwordMismatch: true };
   }
 
   createUser(): void {
@@ -51,8 +43,6 @@ export class UserCreateComponent implements OnInit {
       });
     }
   }
-
-
 
   cancel(): void {
     this.router.navigate(['/login']);

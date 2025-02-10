@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from './usuario';
-import {environment} from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,29 +10,29 @@ import {environment} from "../../../environments/environment";
 export class AuthService {
   baseUrl = `${environment.environmentbaseUrl}/users/login`;
 
-  private usuarioAutenticado: boolean = false;
-  private token: string | null = null;
-
   mostrarMenuEmitter = new EventEmitter<boolean>();
 
   constructor(private router: Router, private http: HttpClient) {}
 
   fazerLogin(usuario: Usuario) {
     this.http.post<{ token: string }>(this.baseUrl, usuario).subscribe(response => {
-      this.token = response.token;
-      console.log("token:" + this.token)
-      this.usuarioAutenticado = true;
+      localStorage.setItem('authToken', response.token);
       this.mostrarMenuEmitter.emit(true);
-      console.log("aqui foi")
       this.router.navigate(['/']);
     });
   }
 
   getToken() {
-    return this.token;
+    return localStorage.getItem('authToken');
   }
 
   usuarioEstaAutenticado() {
-    return this.usuarioAutenticado;
+    return !!this.getToken();
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    this.mostrarMenuEmitter.emit(false);
+    this.router.navigate(['/login']);
   }
 }

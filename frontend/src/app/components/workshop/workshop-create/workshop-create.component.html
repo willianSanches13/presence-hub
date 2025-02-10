@@ -11,19 +11,19 @@
                 <mat-error *ngIf="workshopForm.get('descricao')?.hasError('required')">Descrição é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Data" formControlName="data">
+                <input matInput [matDatepicker]="picker" placeholder="Data" formControlName="data" (focus)="picker.open()">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="workshopForm.get('data')?.hasError('required')">Data é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [ngxTimepicker]="startTimePicker" placeholder="Hora Início" formControlName="horaInicio">
-                <ngx-material-timepicker #startTimePicker></ngx-material-timepicker>
+                <ngx-material-timepicker #startTimePicker format="24"></ngx-material-timepicker>
                 <mat-error *ngIf="workshopForm.get('horaInicio')?.hasError('required')">Hora Início é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [ngxTimepicker]="endTimePicker" placeholder="Hora Fim" formControlName="horaFim">
-                <ngx-material-timepicker #endTimePicker></ngx-material-timepicker>
+                <ngx-material-timepicker #endTimePicker format="24"></ngx-material-timepicker>
                 <mat-error *ngIf="workshopForm.get('horaFim')?.hasError('required')">Hora Fim é obrigatória</mat-error>
             </mat-form-field>
             <mat-error *ngIf="workshopForm.hasError('timeRangeInvalid')">Hora Fim não pode ser antes da Hora Início</mat-error>
